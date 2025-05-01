@@ -87,6 +87,62 @@
         transform: scale(1.1); /* Efecto de latido */
       }
     }
+
+    .boton-audio {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-verdeoliva);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .boton-audio:hover {
+      background-color: var(--color-verdeoliva-oscuro);
+      transform: scale(1.1);
+    }
+
+    .icono-audio {
+      width: 24px;
+      height: 24px;
+    }
+
+    .animacion-sonido path {
+      animation: ondas 1.5s infinite ease-in-out;
+    }
+
+    .animacion-sonido path:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .animacion-sonido path:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .animacion-sonido path:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes ondas {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
 <body>
@@ -101,14 +157,64 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
+  <audio id="musicaFondo" loop>
+    <source src="https://raw.github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/musica.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
+    <svg class="icono-audio animacion-sonido" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 8a5 5 0 0 1 0 8"></path>
+      <path d="M19 5a9 9 0 0 1 0 14"></path>
+    </svg>
+  </button>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
+      const musicaFondo = document.getElementById('musicaFondo');
+      const botonAudio = document.getElementById('botonAudio');
+      const iconoAudio = botonAudio.querySelector('.icono-audio');
 
-      // Ocultar pantalla principal y mostrar invitación al hacer clic
+      let isPlaying = false;
+
+      // Reproducir música con inicio gradual
+      function playMusic() {
+        musicaFondo.volume = 0; // Comienza con volumen 0
+        musicaFondo.play();
+        let fadeIn = setInterval(() => {
+          if (musicaFondo.volume < 1) {
+            musicaFondo.volume += 0.1;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100); // Incrementos cada 100ms
+        isPlaying = true;
+        iconoAudio.classList.add('animacion-sonido');
+      }
+
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
+        iconoAudio.classList.remove('animacion-sonido');
+      }
+
+      // Toggle música (play/pause)
+      botonAudio.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
+        playMusic();
       });
     });
   </script>
