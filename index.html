@@ -1,178 +1,428 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karina & Luis - Invitación de Boda</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --blanco: #ffffff;
-      --negro: #000000;
-      --dorado: #c5a253;
-      --verde-olivo: #708238;
-      --verde-olivo-claro: #a5b67a;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--blanco);
-      color: var(--negro);
-      scroll-behavior: smooth;
-    }
-
-    header {
-      height: 100vh;
-      background-image: url("URL_DE_TU_IMAGEN_AQUI"); /* Reemplazar */
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      color: var(--negro);
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-    }
-
-    .btn-aceptar {
-      margin-top: 2rem;
-      background-color: var(--verde-olivo);
-      color: var(--blanco);
-      border: none;
-      padding: 1rem 2rem;
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-aceptar:hover {
-      background-color: var(--verde-olivo-claro);
-    }
-
-    section {
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      font-family: 'Playfair Display', serif;
-      color: var(--verde-olivo);
-      margin-bottom: 1rem;
-    }
-
-    section p {
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
-      font-size: 1.1rem;
-    }
-
-    .galeria {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      padding: 1rem 0;
-      margin-top: 2rem;
-    }
-
-    .galeria img {
-      height: 200px;
-      border-radius: 10px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    footer {
-      background-color: var(--verde-olivo);
-      color: var(--blanco);
-      padding: 2rem;
-      text-align: center;
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a Nuestra Boda</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #5a5a5a;
+            background-color: #fafafa;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1000/400') center/cover no-repeat;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #c98474;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: #6c757d;
+        }
+        
+        .invitation-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 40px 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 2rem;
+            color: #c98474;
+            margin-bottom: 30px;
+        }
+        
+        .details-card {
+            background: #fcfcfc;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .details-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #6c757d;
+        }
+        
+        .schedule-item {
+            margin-bottom: 20px;
+        }
+        
+        .schedule-item .time {
+            font-weight: 600;
+            color: #c98474;
+        }
+        
+        .map-container {
+            margin: 30px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+        }
+        
+        .rsvp-form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        button {
+            background-color: #c98474;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #b57667;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 0 0 10px 10px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .countdown {
+            max-width: 400px;
+            margin: 30px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .countdown-item {
+            text-align: center;
+            width: 70px;
+        }
+        
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #c98474;
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+        }
+        
+        .heart-divider {
+            color: #c98474;
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+        
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .gallery-item {
+            width: 150px;
+            height: 150px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .names {
+                font-size: 2.5rem;
+            }
+            
+            .date {
+                font-size: 1.2rem;
+            }
+            
+            .invitation-text {
+                font-size: 1rem;
+            }
+            
+            .countdown {
+                max-width: 300px;
+            }
+            
+            .countdown-item {
+                width: 60px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <div>
-      <h1>
-        Cada familia <br>
-        tiene una historia... <br>
-        deseamos que tú <br>
-        seas testigo de la nuestra
-      </h1>
-      <button class="btn-aceptar" onclick="empezar()">Sí, acepto</button>
+    <div class="container">
+        <header>
+            <div class="names">María & Juan</div>
+            <div class="date">15 DE AGOSTO DE 2025</div>
+            <p class="invitation-text">
+                Con gran alegría e ilusión, queremos invitarte a celebrar nuestra boda.
+                Nos encantaría compartir este día tan especial contigo.
+            </p>
+        </header>
+        
+        <section id="countdown">
+            <h2>Cuenta Regresiva para Nuestro Gran Día</h2>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-days">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="details">
+            <h2>Detalles del Evento</h2>
+            <div class="details-card">
+                <h3>Ceremonia</h3>
+                <p>15 de Agosto de 2025 - 17:00 hrs</p>
+                <p>Iglesia San Francisco de Asís</p>
+                <p>Av. Principal 123, Ciudad</p>
+            </div>
+            
+            <div class="details-card">
+                <h3>Celebración</h3>
+                <p>15 de Agosto de 2025 - 19:00 hrs</p>
+                <p>Hacienda Los Olivares</p>
+                <p>Carretera Norte Km 15, Ciudad</p>
+            </div>
+            
+            <div class="map-container">
+                [Aquí se mostrará el mapa de la ubicación]
+            </div>
+        </section>
+        
+        <section id="schedule">
+            <h2>Programa</h2>
+            <div class="details-card">
+                <div class="schedule-item">
+                    <p class="time">17:00</p>
+                    <p>Ceremonia Religiosa</p>
+                </div>
+                <div class="schedule-item">
+                    <p class="time">19:00</p>
+                    <p>Recepción de Invitados</p>
+                </div>
+                <div class="schedule-item">
+                    <p class="time">20:00</p>
+                    <p>Cena</p>
+                </div>
+                <div class="schedule-item">
+                    <p class="time">21:30</p>
+                    <p>Primer Baile</p>
+                </div>
+                <div class="schedule-item">
+                    <p class="time">22:00</p>
+                    <p>Fiesta y Celebración</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery">
+            <h2>Nuestra Historia</h2>
+            <div class="gallery">
+                <div class="gallery-item">[Foto 1]</div>
+                <div class="gallery-item">[Foto 2]</div>
+                <div class="gallery-item">[Foto 3]</div>
+                <div class="gallery-item">[Foto 4]</div>
+            </div>
+        </section>
+        
+        <section id="rsvp">
+            <h2>Confirma tu Asistencia</h2>
+            <p>Por favor, confírmanos tu asistencia antes del 15 de Julio de 2025</p>
+            <div class="heart-divider">♥</div>
+            
+            <div class="rsvp-form">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance">¿Asistirás?</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="yes">Con mucha ilusión, ¡allí estaré!</option>
+                        <option value="no">Lamentablemente no podré asistir</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guests">Número de acompañantes</label>
+                    <select id="guests" name="guests">
+                        <option value="0">Solo yo</option>
+                        <option value="1">1 acompañante</option>
+                        <option value="2">2 acompañantes</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensaje para los novios (opcional)</label>
+                    <textarea id="message" name="message" rows="3"></textarea>
+                </div>
+                
+                <button type="submit">Enviar confirmación</button>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <p>¡Esperamos celebrar contigo este día tan especial!</p>
+            <p>María & Juan</p>
+            <p class="heart-divider">♥</p>
+            <p>Para dudas o consultas: bodamariajuan@email.com</p>
+        </footer>
     </div>
-  </header>
-
-  <section id="invitacion" style="display: none;">
-    <h2>Te invitamos cordialmente</h2>
-    <p>El matrimonio es la unión de dos almas que se eligen cada día. Con alegría, te invitamos a celebrar nuestro amor. 💛</p>
-
-    <h2>Cuándo</h2>
-    <p>El 6 de octubre de 2025, a las 17:00 hs.</p>
-
-    <h2>Dónde</h2>
-    <p>Salón Los Olivos, Buenos Aires, Argentina.</p>
-
-    <h2>Código de vestimenta</h2>
-    <p>Formal elegante. Queremos verte espectacular ✨</p>
-
-    <h2>Confirmación</h2>
-    <p>¡Muy pronto podrás confirmar tu asistencia aquí!</p>
-
-    <div class="galeria">
-      <!-- Reemplaza las URLs por tus imágenes en GitHub -->
-      <img src="URL_IMAGEN_1" alt="Foto 1">
-      <img src="URL_IMAGEN_2" alt="Foto 2">
-      <img src="URL_IMAGEN_3" alt="Foto 3">
-    </div>
-
-    <p style="margin-top: 2rem; color: #555; font-size: 0.9rem;">
-      *Con mucho cariño, este evento es solo para adultos ❤️
-    </p>
-  </section>
-
-  <footer>
-    Con amor, Karina & Luis · Gracias por acompañarnos
-  </footer>
-
-  <audio id="musica" loop>
-    <source src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/invitacion/musica.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const musica = document.getElementById("musica");
-
-    function empezar() {
-      document.querySelector("header").style.display = "none";
-      document.getElementById("invitacion").style.display = "block";
-      musica.volume = 0.5;
-      musica.play();
-    }
-  </script>
+    
+    <script>
+        // Función para actualizar la cuenta regresiva
+        function updateCountdown() {
+            const weddingDate = new Date('August 15, 2025 17:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            // Cálculos para días, horas, minutos y segundos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Mostrar resultados
+            document.getElementById('countdown-days').innerText = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('countdown-minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('countdown-seconds').innerText = String(seconds).padStart(2, '0');
+            
+            // Si la fecha ya pasó
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown-days').innerText = '00';
+                document.getElementById('countdown-hours').innerText = '00';
+                document.getElementById('countdown-minutes').innerText = '00';
+                document.getElementById('countdown-seconds').innerText = '00';
+            }
+        }
+        
+        // Actualizar la cuenta regresiva cada segundo
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Código para manejar el envío del formulario
+        document.querySelector('.rsvp-form button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const attendance = document.getElementById('attendance').value;
+            
+            if (name && email && attendance) {
+                alert('¡Gracias por tu confirmación, ' + name + '!');
+                // Aquí podrías agregar código para enviar los datos a una API
+            } else {
+                alert('Por favor completa todos los campos obligatorios.');
+            }
+        });
+    </script>
 </body>
 </html>
