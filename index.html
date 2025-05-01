@@ -30,36 +30,49 @@
         }
         
         /* Pantalla de bienvenida */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap');
+        
         .welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/api/placeholder/1000/1000') center/cover no-repeat;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/api/placeholder/1000/1000') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            color: white;
+            color: #556b2f;
             text-align: center;
             transition: opacity 1s ease;
         }
         
         .welcome-content {
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 50px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 60px;
             border-radius: 10px;
             max-width: 90%;
-            width: 500px;
+            width: 600px;
+            box-shadow: 0 10px 30px rgba(85, 107, 47, 0.15);
+            border: 1px solid rgba(85, 107, 47, 0.2);
+        }
+        
+        .welcome-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #556b2f;
+            margin-bottom: 40px;
+            line-height: 1.4;
+            font-weight: 600;
         }
         
         .welcome-names {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: #a87b51;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            color: #556b2f;
+            margin-bottom: 30px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
@@ -67,25 +80,26 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 400;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             color: #6c757d;
         }
         
         .enter-button {
-            background-color: #a87b51;
+            background-color: #556b2f;
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 60px;
             border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            margin-top: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
+            letter-spacing: 1px;
         }
         
         .enter-button i {
@@ -93,7 +107,7 @@
         }
         
         .enter-button:hover {
-            background-color: #8a6642;
+            background-color: #445626;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -509,11 +523,16 @@
     <!-- Pantalla de bienvenida -->
     <div class="welcome-screen" id="welcome-screen">
         <div class="welcome-content">
+            <div class="welcome-message">
+                Cada familia<br>
+                tiene su historia...<br>
+                te invitamos<br>
+                a participar de la nuestra...
+            </div>
             <div class="welcome-names">María & Juan</div>
             <div class="welcome-date">15 DE AGOSTO DE 2025</div>
-            <p>Nos complace invitarte a nuestra boda</p>
             <button class="enter-button" id="enter-button">
-                Abrir invitación <i class="fas fa-envelope-open"></i>
+                SÍ, ACEPTO
             </button>
         </div>
     </div>
@@ -522,7 +541,7 @@
     <div class="audio-control" id="audio-control">
         <i class="fas fa-volume-up" id="audio-icon"></i>
     </div>
-    <audio id="background-music" loop>
+    <audio id="background-music" loop preload="auto">
         <source src="" type="audio/mpeg">
     </audio>
     
