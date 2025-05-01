@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación a Nuestra Boda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
         
         * {
             margin: 0;
@@ -16,98 +17,271 @@
         body {
             font-family: 'Montserrat', sans-serif;
             color: #5a5a5a;
-            background-color: #fafafa;
+            background-color: #f8f5f2;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
+            position: relative;
         }
         
+        /* Pantalla de bienvenida */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/api/placeholder/1000/1000') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+        
+        .welcome-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 500px;
+        }
+        
+        .welcome-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #a87b51;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+        
+        .enter-button {
+            background-color: #a87b51;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .enter-button i {
+            margin-left: 10px;
+        }
+        
+        .enter-button:hover {
+            background-color: #8a6642;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Audio controls */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+            color: #a87b51;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-control:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Main content */
         header {
             text-align: center;
-            padding: 60px 0;
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1000/400') center/cover no-repeat;
-            border-radius: 10px 10px 0 0;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 80px 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('/api/placeholder/1000/400') center/cover no-repeat;
+            border-radius: 0;
         }
         
         .names {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: #c98474;
+            font-size: 4rem;
+            color: #a87b51;
             margin-bottom: 20px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
         .date {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 300;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             color: #6c757d;
         }
         
         .invitation-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.8;
         }
         
         section {
-            padding: 40px 20px;
+            padding: 80px 20px;
             text-align: center;
-            background: white;
             border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+        }
+        
+        section:nth-child(even) {
+            background-color: #f9f7f5;
         }
         
         h2 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 500;
-            font-size: 2rem;
-            color: #c98474;
+            font-size: 2.5rem;
+            color: #a87b51;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #a87b51;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 30px;
         }
         
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #f0e5d8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #a87b51;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-circle:hover {
+            transform: scale(1.1);
+            background-color: #e8d5c0;
+        }
+        
         .details-card {
-            background: #fcfcfc;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             max-width: 700px;
-            margin: 0 auto 30px;
+            margin: 0 auto 40px;
+            border: 1px solid #f0e5d8;
+            transition: all 0.3s ease;
+        }
+        
+        .details-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
         }
         
         .details-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #6c757d;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #a87b51;
+        }
+        
+        .details-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
         }
         
         .schedule-item {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .schedule-item:before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #a87b51;
         }
         
         .schedule-item .time {
             font-weight: 600;
-            color: #c98474;
+            color: #a87b51;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
         }
         
         .map-container {
-            margin: 30px auto;
+            margin: 40px auto;
             width: 100%;
-            max-width: 600px;
-            height: 300px;
+            max-width: 700px;
+            height: 350px;
             background-color: #f0f0f0;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #888;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .rsvp-form {
@@ -117,137 +291,253 @@
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
+            color: #666;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #a87b51;
+            box-shadow: 0 0 0 2px rgba(168, 123, 81, 0.2);
         }
         
         button {
-            background-color: #c98474;
+            background-color: #a87b51;
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 4px;
+            padding: 15px 30px;
+            border-radius: 8px;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         button:hover {
-            background-color: #b57667;
+            background-color: #8a6642;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         .footer {
             text-align: center;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 0 0 10px 10px;
-            font-size: 0.9rem;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1000/400') center/cover no-repeat;
+            font-size: 1rem;
             color: #888;
         }
         
         .countdown {
-            max-width: 400px;
-            margin: 30px auto;
+            max-width: 600px;
+            margin: 40px auto;
             display: flex;
             justify-content: space-between;
         }
         
         .countdown-item {
             text-align: center;
-            width: 70px;
+            width: 120px;
+            background-color: white;
+            padding: 20px 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0e5d8;
         }
         
         .countdown-value {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 600;
-            color: #c98474;
+            color: #a87b51;
+            line-height: 1;
+            margin-bottom: 10px;
         }
         
         .countdown-label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             color: #888;
+            letter-spacing: 1px;
         }
         
         .heart-divider {
-            color: #c98474;
+            color: #a87b51;
             font-size: 2rem;
-            margin: 20px 0;
+            margin: 30px 0;
         }
         
         .gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
+            gap: 20px;
+            margin: 40px 0;
         }
         
         .gallery-item {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background-color: #f0f0f0;
-            border-radius: 5px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #888;
         }
         
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .regalo-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #f0e5d8;
+        }
+        
+        .regalo-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: #a87b51;
+            margin-bottom: 15px;
+        }
+        
+        .copy-button {
+            background-color: #f0e5d8;
+            color: #a87b51;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            background-color: #e8d5c0;
+        }
+        
         @media (max-width: 768px) {
             .names {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .date {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
             
             .invitation-text {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .countdown {
-                max-width: 300px;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
             }
             
             .countdown-item {
-                width: 60px;
+                width: 100px;
             }
             
             .countdown-value {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
+            
+            .welcome-names {
+                font-size: 2.8rem;
+            }
+            
+            .welcome-content {
+                padding: 30px;
+            }
+            
+            .gallery-item {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #a87b51;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a6642;
         }
     </style>
 </head>
 <body>
+    <!-- Pantalla de bienvenida -->
+    <div class="welcome-screen" id="welcome-screen">
+        <div class="welcome-content">
+            <div class="welcome-names">María & Juan</div>
+            <div class="welcome-date">15 DE AGOSTO DE 2025</div>
+            <p>Nos complace invitarte a nuestra boda</p>
+            <button class="enter-button" id="enter-button">
+                Abrir invitación <i class="fas fa-envelope-open"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Control de audio -->
+    <div class="audio-control" id="audio-control">
+        <i class="fas fa-volume-up" id="audio-icon"></i>
+    </div>
+    <audio id="background-music" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+    
     <div class="container">
         <header>
             <div class="names">María & Juan</div>
             <div class="date">15 DE AGOSTO DE 2025</div>
             <p class="invitation-text">
                 Con gran alegría e ilusión, queremos invitarte a celebrar nuestra boda.
-                Nos encantaría compartir este día tan especial contigo.
+                Nos encantaría compartir este día tan especial contigo y crear juntos recuerdos inolvidables.
             </p>
         </header>
         
         <section id="countdown">
-            <h2>Cuenta Regresiva para Nuestro Gran Día</h2>
+            <h2>Cuenta Regresiva</h2>
             <div class="countdown">
                 <div class="countdown-item">
                     <div class="countdown-value" id="countdown-days">00</div>
@@ -269,18 +559,35 @@
         </section>
         
         <section id="details">
-            <h2>Detalles del Evento</h2>
+            <h2>Evento</h2>
+            <div class="details-row">
+                <div class="icon-box">
+                    <div class="icon-circle">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Ceremonia</h3>
+                </div>
+                <div class="icon-box">
+                    <div class="icon-circle">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <h3>Celebración</h3>
+                </div>
+            </div>
+            
             <div class="details-card">
-                <h3>Ceremonia</h3>
-                <p>15 de Agosto de 2025 - 17:00 hrs</p>
-                <p>Iglesia San Francisco de Asís</p>
+                <h3>Ceremonia Religiosa</h3>
+                <p><i class="far fa-calendar-alt"></i> 15 de Agosto de 2025</p>
+                <p><i class="far fa-clock"></i> 17:00 hrs</p>
+                <p><i class="fas fa-map-marker-alt"></i> Iglesia San Francisco de Asís</p>
                 <p>Av. Principal 123, Ciudad</p>
             </div>
             
             <div class="details-card">
-                <h3>Celebración</h3>
-                <p>15 de Agosto de 2025 - 19:00 hrs</p>
-                <p>Hacienda Los Olivares</p>
+                <h3>Recepción y Fiesta</h3>
+                <p><i class="far fa-calendar-alt"></i> 15 de Agosto de 2025</p>
+                <p><i class="far fa-clock"></i> 19:00 hrs</p>
+                <p><i class="fas fa-map-marker-alt"></i> Hacienda Los Olivares</p>
                 <p>Carretera Norte Km 15, Ciudad</p>
             </div>
             
@@ -290,7 +597,7 @@
         </section>
         
         <section id="schedule">
-            <h2>Programa</h2>
+            <h2>Cronograma</h2>
             <div class="details-card">
                 <div class="schedule-item">
                     <p class="time">17:00</p>
@@ -313,6 +620,14 @@
                     <p>Fiesta y Celebración</p>
                 </div>
             </div>
+            
+            <div class="icon-box">
+                <div class="icon-circle">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>Código de vestimenta</h3>
+                <p>Formal / Elegante</p>
+            </div>
         </section>
         
         <section id="gallery">
@@ -322,13 +637,44 @@
                 <div class="gallery-item">[Foto 2]</div>
                 <div class="gallery-item">[Foto 3]</div>
                 <div class="gallery-item">[Foto 4]</div>
+                <div class="gallery-item">[Foto 5]</div>
+                <div class="gallery-item">[Foto 6]</div>
+            </div>
+        </section>
+        
+        <section id="gifts">
+            <h2>Regalos</h2>
+            <p>Tu presencia es nuestro mejor regalo, pero si quieres obsequiarnos algo más:</p>
+            
+            <div class="regalo-item">
+                <div class="icon-circle" style="margin: 0 auto 20px;">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3>Lluvia de sobres</h3>
+                <p>Agradecemos tu ayuda para cumplir nuestros sueños</p>
+            </div>
+            
+            <div class="regalo-item">
+                <div class="icon-circle" style="margin: 0 auto 20px;">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3>Datos bancarios</h3>
+                <p>Banco: Ejemplo</p>
+                <p>Titular: María García y Juan López</p>
+                <p>CBU: 0123456789012345678901</p>
+                <p>Alias: BODA.MARIA.JUAN</p>
+                <button class="copy-button" onclick="copyToClipboard('BODA.MARIA.JUAN')">
+                    <i class="far fa-copy"></i> Copiar Alias
+                </button>
             </div>
         </section>
         
         <section id="rsvp">
             <h2>Confirma tu Asistencia</h2>
             <p>Por favor, confírmanos tu asistencia antes del 15 de Julio de 2025</p>
-            <div class="heart-divider">♥</div>
+            <div class="icon-circle" style="margin: 30px auto;">
+                <i class="fas fa-check-circle"></i>
+            </div>
             
             <div class="rsvp-form">
                 <div class="form-group">
@@ -339,6 +685,11 @@
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
                     <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
                 
                 <div class="form-group">
@@ -364,19 +715,61 @@
                     <textarea id="message" name="message" rows="3"></textarea>
                 </div>
                 
-                <button type="submit">Enviar confirmación</button>
+                <button type="submit">Confirmar asistencia</button>
             </div>
         </section>
         
         <footer class="footer">
+            <div class="names" style="font-size: 2.5rem;">María & Juan</div>
             <p>¡Esperamos celebrar contigo este día tan especial!</p>
-            <p>María & Juan</p>
-            <p class="heart-divider">♥</p>
+            <div class="heart-divider">♥</div>
             <p>Para dudas o consultas: bodamariajuan@email.com</p>
+            <p style="margin-top: 20px;">
+                <i class="fas fa-phone-alt"></i> María: 123-456-7890 | Juan: 123-456-7891
+            </p>
         </footer>
     </div>
     
     <script>
+        // Manejar la pantalla de bienvenida
+        document.getElementById('enter-button').addEventListener('click', function() {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const music = document.getElementById('background-music');
+            
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+            }, 1000);
+            
+            // Intentar reproducir música
+            try {
+                music.play().catch(e => {
+                    console.log('Auto-play was prevented. Please enable music manually.');
+                });
+            } catch (error) {
+                console.log('Error playing music:', error);
+            }
+        });
+        
+        // Control de audio
+        let isPlaying = false;
+        const audioControl = document.getElementById('audio-control');
+        const audioIcon = document.getElementById('audio-icon');
+        const music = document.getElementById('background-music');
+        
+        audioControl.addEventListener('click', function() {
+            if (isPlaying) {
+                music.pause();
+                audioIcon.className = 'fas fa-volume-mute';
+            } else {
+                music.play().catch(e => {
+                    console.log('Play was prevented by the browser.');
+                });
+                audioIcon.className = 'fas fa-volume-up';
+            }
+            isPlaying = !isPlaying;
+        });
+        
         // Función para actualizar la cuenta regresiva
         function updateCountdown() {
             const weddingDate = new Date('August 15, 2025 17:00:00').getTime();
@@ -409,20 +802,59 @@
         updateCountdown();
         const countdownInterval = setInterval(updateCountdown, 1000);
         
+        // Función para copiar al portapapeles
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Alias copiado al portapapeles: ' + text);
+            }, function(err) {
+                console.error('No se pudo copiar el texto: ', err);
+            });
+        }
+        
         // Código para manejar el envío del formulario
         document.querySelector('.rsvp-form button').addEventListener('click', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const attendance = document.getElementById('attendance').value;
             
-            if (name && email && attendance) {
-                alert('¡Gracias por tu confirmación, ' + name + '!');
-                // Aquí podrías agregar código para enviar los datos a una API
+            if (name && email && phone && attendance) {
+                alert('¡Gracias por tu confirmación, ' + name + '! Nos vemos en nuestra boda.');
+                // Aquí podrías agregar código para enviar los datos a un servidor o API
+                document.querySelector('.rsvp-form').reset();
             } else {
                 alert('Por favor completa todos los campos obligatorios.');
             }
         });
-    </script>
-</body>
-</html>
+        
+        // Función para animar elementos cuando son visibles
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.icon-box, .details-card, .gallery-item, .regalo-item');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Inicializar la animación
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.icon-box, .details-card, .gallery-item, .regalo-item');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // Ejecutar la animación al cargar la página
+            setTimeout(animateOnScroll, 500);
+            
+            // Escuchar evento de scroll
+            window.addEventListener('scroll', animateOnScroll);
+        });
