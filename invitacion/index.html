@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karina & Luis - Invitación de Boda</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blanco: #ffffff;
+      --negro: #000000;
+      --dorado: #c5a253;
+      --verde-olivo: #708238;
+      --verde-olivo-claro: #a5b67a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--blanco);
+      color: var(--negro);
+      scroll-behavior: smooth;
+    }
+
+    header {
+      height: 100vh;
+      background-image: url("URL_DE_TU_IMAGEN_AQUI"); /* Reemplazar */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--negro);
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
+
+    .btn-aceptar {
+      margin-top: 2rem;
+      background-color: var(--verde-olivo);
+      color: var(--blanco);
+      border: none;
+      padding: 1rem 2rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-aceptar:hover {
+      background-color: var(--verde-olivo-claro);
+    }
+
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--verde-olivo);
+      margin-bottom: 1rem;
+    }
+
+    section p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .galeria {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+
+    .galeria img {
+      height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    footer {
+      background-color: var(--verde-olivo);
+      color: var(--blanco);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>
+        Cada familia <br>
+        tiene una historia... <br>
+        deseamos que tú <br>
+        seas testigo de la nuestra
+      </h1>
+      <button class="btn-aceptar" onclick="empezar()">Sí, acepto</button>
+    </div>
+  </header>
+
+  <section id="invitacion" style="display: none;">
+    <h2>Te invitamos cordialmente</h2>
+    <p>El matrimonio es la unión de dos almas que se eligen cada día. Con alegría, te invitamos a celebrar nuestro amor. 💛</p>
+
+    <h2>Cuándo</h2>
+    <p>El 6 de octubre de 2025, a las 17:00 hs.</p>
+
+    <h2>Dónde</h2>
+    <p>Salón Los Olivos, Buenos Aires, Argentina.</p>
+
+    <h2>Código de vestimenta</h2>
+    <p>Formal elegante. Queremos verte espectacular ✨</p>
+
+    <h2>Confirmación</h2>
+    <p>¡Muy pronto podrás confirmar tu asistencia aquí!</p>
+
+    <div class="galeria">
+      <!-- Reemplaza las URLs por tus imágenes en GitHub -->
+      <img src="URL_IMAGEN_1" alt="Foto 1">
+      <img src="URL_IMAGEN_2" alt="Foto 2">
+      <img src="URL_IMAGEN_3" alt="Foto 3">
+    </div>
+
+    <p style="margin-top: 2rem; color: #555; font-size: 0.9rem;">
+      *Con mucho cariño, este evento es solo para adultos ❤️
+    </p>
+  </section>
+
+  <footer>
+    Con amor, Karina & Luis · Gracias por acompañarnos
+  </footer>
+
+  <audio id="musica" loop>
+    <source src="URL_DE_TU_MUSICA_AQUI" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const musica = document.getElementById("musica");
+
+    function empezar() {
+      document.querySelector("header").style.display = "none";
+      document.getElementById("invitacion").style.display = "block";
+      musica.volume = 0.5;
+      musica.play();
+    }
+  </script>
+</body>
+</html>
