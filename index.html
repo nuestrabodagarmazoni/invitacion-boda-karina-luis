@@ -6,7 +6,7 @@
     <title>Invitación a Nuestra Boda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@400;600&family=Satisfy&display=swap');
         
         * {
             margin: 0;
@@ -30,49 +30,47 @@
         }
         
         /* Pantalla de bienvenida */
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap');
-        
         .welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/api/placeholder/1000/1000') center/cover no-repeat;
+            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/api/placeholder/1000/1000') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            color: #556b2f;
+            color: #4a5d23;
             text-align: center;
             transition: opacity 1s ease;
         }
         
         .welcome-content {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(250, 250, 245, 0.9);
             padding: 60px;
             border-radius: 10px;
             max-width: 90%;
-            width: 600px;
-            box-shadow: 0 10px 30px rgba(85, 107, 47, 0.15);
-            border: 1px solid rgba(85, 107, 47, 0.2);
+            width: 550px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(107, 142, 35, 0.2);
         }
         
         .welcome-message {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
-            color: #556b2f;
-            margin-bottom: 40px;
+            font-family: 'Satisfy', cursive;
+            font-size: 2.2rem;
+            color: #5a6b3f;
             line-height: 1.4;
-            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
         }
         
         .welcome-names {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: #556b2f;
-            margin-bottom: 30px;
+            font-size: 3.5rem;
+            color: #6b8e23;
+            margin-bottom: 15px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
@@ -80,19 +78,19 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 400;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #6c757d;
         }
         
         .enter-button {
-            background-color: #556b2f;
+            background-color: #6b8e23;
             color: white;
             border: none;
-            padding: 15px 60px;
+            padding: 15px 40px;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -107,7 +105,7 @@
         }
         
         .enter-button:hover {
-            background-color: #445626;
+            background-color: #556b2f;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -532,7 +530,7 @@
             <div class="welcome-names">María & Juan</div>
             <div class="welcome-date">15 DE AGOSTO DE 2025</div>
             <button class="enter-button" id="enter-button">
-                SÍ, ACEPTO
+                SÍ, ACEPTO <i class="fas fa-heart"></i>
             </button>
         </div>
     </div>
@@ -541,7 +539,7 @@
     <div class="audio-control" id="audio-control">
         <i class="fas fa-volume-up" id="audio-icon"></i>
     </div>
-    <audio id="background-music" loop preload="auto">
+    <audio id="background-music" loop>
         <source src="" type="audio/mpeg">
     </audio>
     
@@ -755,18 +753,28 @@
             const welcomeScreen = document.getElementById('welcome-screen');
             const music = document.getElementById('background-music');
             
+            // Hacer que desaparezca la pantalla de bienvenida con transición suave
             welcomeScreen.style.opacity = '0';
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
             }, 1000);
             
-            // Intentar reproducir música
+            // Activar el botón de audio
+            isPlaying = true;
+            audioIcon.className = 'fas fa-volume-up';
+            
+            // Intentar reproducir música automáticamente
             try {
+                music.volume = 0.5; // Volumen al 50%
                 music.play().catch(e => {
                     console.log('Auto-play was prevented. Please enable music manually.');
+                    isPlaying = false;
+                    audioIcon.className = 'fas fa-volume-mute';
                 });
             } catch (error) {
                 console.log('Error playing music:', error);
+                isPlaying = false;
+                audioIcon.className = 'fas fa-volume-mute';
             }
         });
         
