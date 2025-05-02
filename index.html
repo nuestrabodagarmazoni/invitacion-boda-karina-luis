@@ -31,25 +31,25 @@
     }
 
     /* Imagen "welcome" centrada */
-    .pantalla-principal {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Link de fondo */
-      background-size: 100% auto; /* Acomoda al ancho de la pantalla */
-      background-position: center;
-      background-repeat: no-repeat; /* Evita repetición */
-      padding: 2rem;
-      text-align: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      transition: transform 1.5s ease;
-    }
+.pantalla-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Link de fondo */
+  background-size: auto 100%; /* Ajusta al alto de la pantalla */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita repetición */
+  padding: 2rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: transform 1.5s ease;
+}
 
     .pantalla-principal.oculta {
       transform: translateY(-100%);
