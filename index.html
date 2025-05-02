@@ -152,52 +152,6 @@
     .boton-audio.on .icono-audio {
       fill: var(--color-dorado); /* Cambiar color cuando está encendido */
 }
-    /* Contenedor de hojas */
-.hojas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 200;
-  overflow: hidden;
-}
-
-/* Estilo base de las hojas */
-.hoja {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-verdeoliva);
-  border-radius: 50%;
-  animation: caer 5s linear forwards;
-  opacity: 0.8;
-}
-
-/* Hojas doradas */
-.hoja.dorada {
-  background-color: var(--color-dorado);
-  opacity: 0.9;
-}
-
-/* Hojas translúcidas */
-.hoja.translucida {
-  opacity: 0.5;
-}
-
-/* Animación de caída */
-@keyframes caer {
-  0% {
-    transform: translateY(-50px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
 /* Contenedor de hojas */
 .hojas {
   position: fixed;
@@ -217,76 +171,7 @@
   height: 20px;
   background-color: var(--color-verdeoliva);
   border-radius: 50%;
-  animation: caer 2s ease-out forwards;
-  opacity: 1;
-}
-
-/* Hojas doradas */
-.hoja.dorada {
-  background-color: var(--color-dorado);
-  opacity: 0.9;
-}
-
-/* Hojas translúcidas */
-.hoja.translucida {
-  opacity: 0.5;
-}
-
-/* Animación explosiva de caída */
-@keyframes caer {
-  0% {
-    transform: translateY(-150px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Animación de caída con velocidades variables */
-@keyframes caer {
-  0% {
-    transform: translateY(-150px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Estilo base de las hojas */
-.hoja {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-verdeoliva);
-  border-radius: 50%;
-  animation: caer ease-out forwards; /* Animación con duración dinámica */
-  opacity: 1;
-}
-
-/* Contenedor de hojas */
-.hojas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 200;
-  overflow: hidden;
-}
-
-/* Estilo base de las hojas */
-.hoja {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-verdeoliva);
-  border-radius: 50%;
-  animation: caer 3s ease-out forwards; /* Duración fija de 3 segundos */
+  animation: caer 3s ease-out forwards;
   opacity: 1;
 }
 
@@ -423,38 +308,49 @@
         }
       });
 
-// Función para crear la lluvia de hojas
+// Función para crear la lluvia de hojas con más cantidad, tamaños variados, y duración fija
 function crearLluviaDeHojas() {
   const hojasContainer = document.createElement('div');
   hojasContainer.classList.add('hojas');
   document.body.appendChild(hojasContainer);
 
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 500; i++) { // 500 hojas
     const hoja = document.createElement('div');
     hoja.classList.add('hoja');
+
+    // Agregar clases adicionales para variaciones
     if (Math.random() > 0.7) hoja.classList.add('dorada');
     if (Math.random() > 0.5) hoja.classList.add('translucida');
-    hoja.style.left = Math.random() * 100 + 'vw';
-    hoja.style.animationDelay = Math.random() * 2 + 's';
-    hoja.style.animationDuration = Math.random() * 2 + 3 + 's';
+
+    // Posición inicial aleatoria
+    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
+    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+
+    // Tamaños variados
+    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
+    hoja.style.width = 20 * sizeMultiplier + 'px';
+    hoja.style.height = 20 * sizeMultiplier + 'px';
+
+    // Velocidades variables de caída (todas duran 3 segundos)
+    hoja.style.animationDuration = '3s';
+
+    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto lluvia
     hojasContainer.appendChild(hoja);
   }
 
+  // Eliminar las hojas después de la animación
   setTimeout(() => {
     hojasContainer.remove();
-  }, 7000);
+  }, 3000); // Duración fija de 3 segundos
 }
 
-// Función para crear la lluvia de hojas explosiva
-function crearLluviaDeHojas() {
-  const hojasContainer = document.createElement('div');
-  hojasContainer.classList.add('hojas');
-  document.body.appendChild(hojasContainer);
-
-  for (let i = 0; i < 120; i++) {
-    const hoja = document.createElement('div');
-    hoja.classList.add('hoja');
-
+// Llamada a la función al presionar el botón "Aceptar"
+botonAceptar.addEventListener('click', function () {
+  pantallaPrincipal.classList.add('oculta');
+  playMusic();
+  botonAudio.classList.add('visible'); // Mostrar botón de audio
+  crearLluviaDeHojas(); // Inicia la lluvia de hojas
+});
     // Agregar clases adicionales para variaciones
     if (Math.random() > 0.7) hoja.classList.add('dorada');
     if (Math.random() > 0.5) hoja.classList.add('translucida');
