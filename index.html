@@ -93,6 +93,45 @@
         transform: scale(1.1); /* Efecto de latido */
       }
     }
+
+    /* Botón flotante de audio */
+    .boton-audio {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-verdeoliva);
+      color: white;
+      display: none; /* Oculto inicialmente */
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 400;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .boton-audio.visible {
+      display: flex;
+    }
+
+    .boton-audio:hover {
+      background-color: #5c6633;
+      transform: scale(1.1);
+    }
+
+    .icono-audio {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .boton-audio.on .icono-audio {
+      fill: var(--color-dorado);
+    }
   </style>
 </head>
 <body>
@@ -108,13 +147,66 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
+  <!-- Música de fondo -->
+  <audio id="musicaFondo" loop>
+    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <!-- Botón flotante de control de audio -->
+  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
+    <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 8a5 5 0 0 1 0 8"></path>
+      <path d="M19 5a9 9 0 0 1 0 14"></path>
+    </svg>
+  </button>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
+      const musicaFondo = document.getElementById('musicaFondo');
+      const botonAudio = document.getElementById('botonAudio');
 
+      let isPlaying = false;
+
+      // Reproducir música con inicio gradual
+      function playMusic() {
+        musicaFondo.volume = 0;
+        musicaFondo.play();
+        let fadeIn = setInterval(() => {
+          if (musicaFondo.volume < 1) {
+            musicaFondo.volume += 0.1;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+        isPlaying = true;
+        botonAudio.classList.add('on'); // Cambiar estado del botón
+      }
+
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
+        botonAudio.classList.remove('on'); // Cambiar estado del botón
+      }
+
+      // Alternar reproducción/pausa de música
+      botonAudio.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
+        playMusic();
+        botonAudio.classList.add('visible'); // Mostrar el botón de audio
       });
     });
   </script>
