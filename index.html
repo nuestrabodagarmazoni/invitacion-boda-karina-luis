@@ -91,6 +91,30 @@
       }
     }
 
+    /* Imagen ascendente */
+    .imagen-ascendente {
+      position: fixed;
+      bottom: -100px; /* Comienza fuera de la pantalla */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 500px;
+      opacity: 0;
+      animation: subir 3s ease-in-out forwards;
+      z-index: 50; /* Aparece debajo del fondo */
+    }
+
+    @keyframes subir {
+      0% {
+        bottom: -100px;
+        opacity: 0;
+      }
+      100% {
+        bottom: 10%;
+        opacity: 1;
+      }
+    }
+
     /* Botón flotante de audio */
     .boton-audio {
       position: fixed;
@@ -123,6 +147,11 @@
     .icono-audio {
       width: 24px;
       height: 24px;
+      fill: white;
+    }
+
+    .boton-audio.on .icono-audio {
+      fill: var(--color-dorado); /* Cambiar color cuando está encendido */
     }
   </style>
 </head>
@@ -138,6 +167,9 @@
     </h1>
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
+
+  <!-- Imagen ascendente -->
+  <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen decorativa" class="imagen-ascendente" id="imagenAscendente" />
 
   <!-- Música de fondo -->
   <audio id="musicaFondo" loop>
@@ -160,9 +192,9 @@
       const botonAceptar = document.getElementById('botonAceptar');
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
+      const imagenAscendente = document.getElementById('imagenAscendente');
 
       let isPlaying = false;
-      let shouldResumeOnFocus = false;
 
       // Reproducir música con inicio gradual
       function playMusic() {
@@ -176,12 +208,14 @@
           }
         }, 100);
         isPlaying = true;
+        botonAudio.classList.add('on'); // Cambiar estado del botón
       }
 
       // Pausar música
       function pauseMusic() {
         musicaFondo.pause();
         isPlaying = false;
+        botonAudio.classList.remove('on'); // Cambiar estado del botón
       }
 
       // Alternar reproducción/pausa de música
@@ -190,19 +224,6 @@
           pauseMusic();
         } else {
           playMusic();
-        }
-      });
-
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true;
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false;
         }
       });
 
