@@ -72,7 +72,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 2s infinite; /* Animación más lenta */
+      animation: heartbeat 6s infinite; /* Animación más lenta */
     }
 
     .boton-aceptar:hover {
@@ -81,10 +81,10 @@
     }
 
     @keyframes heartbeat {
-      0%, 20%, 40%, 60%, 80%, 100% {
+      0%, 50%, 100% {
         transform: scale(1);
       }
-      10%, 30%, 50%, 70%, 90% {
+      25%, 75% {
         transform: scale(1.1); /* Efecto de latido */
       }
     }
@@ -106,7 +106,7 @@
       height: 30px;
       background-color: var(--color-verdeoliva);
       border-radius: 50%;
-      animation: caer 5s linear infinite;
+      animation: caer 5s linear;
     }
 
     @keyframes caer {
@@ -237,7 +237,6 @@
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
       const iconoAudio = botonAudio.querySelector('.icono-audio');
-
       let isPlaying = false;
       let shouldResumeOnFocus = false;
 
@@ -287,7 +286,6 @@
 
       // Crear hojas dinámicamente (solo una vez)
       function crearHojas() {
-        hojas.innerHTML = ''; // Limpiar hojas previamente generadas
         for (let i = 0; i < 50; i++) {
           const hoja = document.createElement('div');
           hoja.classList.add('hoja');
@@ -296,8 +294,8 @@
           hojas.appendChild(hoja);
         }
         setTimeout(() => {
-          hojas.innerHTML = ''; // Limpiar las hojas después de su animación
-        }, 5000); // Dura aproximadamente 5 segundos
+          hojas.innerHTML = ''; // Limpiar hojas después de la animación
+        }, 5000); // Duración de la animación
       }
 
       // Acción al presionar "Sí, acepto"
@@ -308,7 +306,7 @@
         // Mostrar el botón de audio
         botonAudio.classList.add('visible');
 
-        // Generar la lluvia de hojas
+        // Generar la lluvia de hojas (solo una vez)
         crearHojas();
 
         // Mostrar imagen después de la lluvia de hojas
