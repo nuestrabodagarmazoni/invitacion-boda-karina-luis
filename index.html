@@ -55,20 +55,16 @@
       transform: translateY(-100%);
     }
 
-    /* Borde gris oscuro a la frase */
+    /* Borde alrededor de cada letra */
     .mensaje-principal {
       font-family: 'Dancing Script', cursive;
       font-size: 2.8rem;
       line-height: 1.4;
       margin-bottom: 3rem;
-      color: var(--color-verdeoliva);
+      color: var(--color-verdeoliva); /* Color interno de las letras */
       font-weight: 700; /* Negrita */
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra negra difuminada */
-      border: 1px solid var(--color-gris-oscuro); /* Agregar borde gris oscuro */
-      padding: 1rem; /* Espaciado interno para que el texto no quede pegado al borde */
-      border-radius: 10px; /* Bordes redondeados para un mejor diseño */
-      display: inline-block; /* Mantener el tamaño del borde ajustado al texto */
-      background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+      text-shadow: none; /* Elimina la sombra */
+      -webkit-text-stroke: 1px var(--color-gris-oscuro); /* Borde gris oscuro alrededor de las letras */
     }
 
     .boton-aceptar {
@@ -77,7 +73,6 @@
       border: none;
       padding: 1rem 2.5rem;
       font-size: 1.2rem;
-      font-family: 'Montserrat', sans-serif;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
