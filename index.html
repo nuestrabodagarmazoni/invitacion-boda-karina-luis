@@ -194,6 +194,7 @@
       const imagenAscendente = document.getElementById('imagenAscendente');
 
       let isPlaying = false;
+      let shouldResumeOnFocus = false;
 
       // Reproducir música con inicio gradual
       function playMusic() {
@@ -223,6 +224,19 @@
           pauseMusic();
         } else {
           playMusic();
+        }
+      });
+
+      // Pausar música automáticamente al salir de la pestaña
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
+          }
+        } else if (shouldResumeOnFocus) {
+          playMusic();
+          shouldResumeOnFocus = false; // Ya no necesita reanudar
         }
       });
 
