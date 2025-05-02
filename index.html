@@ -36,7 +36,9 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: var(--color-blanco);
+      background-image: url('TU_LINK_DE_FONDO_AQUÍ'); /* Agrega tu link de fondo */
+      background-size: cover;
+      background-position: center;
       padding: 2rem;
       text-align: center;
       position: fixed;
@@ -89,60 +91,6 @@
       }
     }
 
-    /* Lluvia de hojas */
-    .hojas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 200;
-    }
-
-    .hoja {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: var(--color-verdeoliva);
-      border-radius: 50%;
-      opacity: 0.8; /* Transparencia inicial */
-      animation: caer 2s linear forwards;
-    }
-
-    .hoja.dorada {
-      background-color: var(--color-dorado);
-      opacity: 0.9;
-    }
-
-    .hoja.translucida {
-      background-color: var(--color-verdeoliva);
-      opacity: 0.5;
-    }
-
-    @keyframes caer {
-      0% {
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(120vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Imagen ajustada */
-    .imagen-ajustada {
-      display: none;
-      width: 100%;
-      height: auto;
-      z-index: 300;
-    }
-
-    .imagen-ajustada.visible {
-      display: block;
-    }
-
     /* Botón flotante de audio */
     .boton-audio {
       position: fixed;
@@ -191,12 +139,6 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
-  <!-- Lluvia de hojas -->
-  <div class="hojas" id="hojas"></div>
-
-  <!-- Imagen ajustada -->
-  <img id="imagenAjustada" class="imagen-ajustada" src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen de invitación">
-
   <!-- Música de fondo -->
   <audio id="musicaFondo" loop>
     <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
@@ -216,12 +158,11 @@
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
-      const hojas = document.getElementById('hojas');
-      const imagenAjustada = document.getElementById('imagenAjustada');
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
 
       let isPlaying = false;
+      let shouldResumeOnFocus = false;
 
       // Reproducir música con inicio gradual
       function playMusic() {
@@ -237,31 +178,39 @@
         isPlaying = true;
       }
 
-      // Crear lluvia de hojas (una sola vez)
-      function crearHojas() {
-        for (let i = 0; i < 100; i++) {
-          const hoja = document.createElement('div');
-          hoja.classList.add('hoja');
-          if (Math.random() > 0.7) hoja.classList.add('dorada');
-          if (Math.random() > 0.5) hoja.classList.add('translucida');
-          hoja.style.left = Math.random() * 100 + 'vw';
-          hoja.style.animationDelay = Math.random() * 0.5 + 's';
-          hojas.appendChild(hoja);
-        }
-        setTimeout(() => {
-          hojas.innerHTML = ''; // Limpiar hojas después de animación
-        }, 2000); // Duración total de la lluvia
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
       }
+
+      // Alternar reproducción/pausa de música
+      botonAudio.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // Pausar música automáticamente al salir de la pestaña
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+            shouldResumeOnFocus = true;
+          }
+        } else if (shouldResumeOnFocus) {
+          playMusic();
+          shouldResumeOnFocus = false;
+        }
+      });
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
         playMusic();
         botonAudio.classList.add('visible'); // Mostrar botón de audio
-        crearHojas(); // Generar lluvia de hojas
-        setTimeout(() => {
-          imagenAjustada.classList.add('visible'); // Mostrar la imagen
-        }, 500);
       });
     });
   </script>
