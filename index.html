@@ -388,6 +388,39 @@ botonAceptar.addEventListener('click', function () {
   botonAudio.classList.add('visible'); // Mostrar botón de audio
   crearLluviaDeHojas(); // Inicia la lluvia de hojas
 });
+
+// Función para crear la lluvia de hojas con más cantidad y tamaños variados
+function crearLluviaDeHojas() {
+  const hojasContainer = document.createElement('div');
+  hojasContainer.classList.add('hojas');
+  document.body.appendChild(hojasContainer);
+
+  for (let i = 0; i < 250; i++) { // Cambiamos a 250 hojas
+    const hoja = document.createElement('div');
+    hoja.classList.add('hoja');
+
+    // Agregar clases adicionales para variaciones
+    if (Math.random() > 0.7) hoja.classList.add('dorada');
+    if (Math.random() > 0.5) hoja.classList.add('translucida');
+
+    // Posición inicial explosiva
+    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
+    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+
+    // Tamaños variados
+    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
+    hoja.style.width = 20 * sizeMultiplier + 'px';
+    hoja.style.height = 20 * sizeMultiplier + 'px';
+
+    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto explosivo
+    hojasContainer.appendChild(hoja);
+  }
+
+  // Eliminar las hojas después de la animación
+  setTimeout(() => {
+    hojasContainer.remove();
+  }, 2000); // Duración total de la animación
+}
       
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
