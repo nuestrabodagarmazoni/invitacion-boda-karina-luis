@@ -95,10 +95,9 @@
     .imagen-ascendente {
       position: fixed;
       bottom: -100px; /* Comienza fuera de la pantalla */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      max-width: 500px;
+      left: 0;
+      width: 100%; /* Ajusta al ancho total de la pantalla */
+      height: auto; /* Mantiene la proporción */
       opacity: 0;
       animation: subir 3s ease-in-out forwards;
       z-index: 50; /* Aparece debajo del fondo */
@@ -110,7 +109,7 @@
         opacity: 0;
       }
       100% {
-        bottom: 10%;
+        bottom: 0; /* Asciende hasta alinearse con el borde inferior */
         opacity: 1;
       }
     }
