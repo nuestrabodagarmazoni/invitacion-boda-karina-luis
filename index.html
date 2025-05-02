@@ -29,297 +29,116 @@
       overflow-x: hidden;
     }
 
-    /* Pantalla principal */
-    .pantalla-principal {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: var(--color-blanco);
-      padding: 2rem;
+    .seccion {
       text-align: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      transition: transform 1.5s ease;
+      padding: 2rem 1rem;
     }
 
-    .pantalla-principal.oculta {
-      transform: translateY(-100%);
-    }
-
-    .mensaje-principal {
+    .titulo-principal {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.8rem;
-      line-height: 1.4;
-      margin-bottom: 3rem;
+      font-size: 3rem;
+      margin-bottom: 1rem;
       color: var(--color-verdeoliva-oscuro);
-      font-weight: 700; /* Negrita */
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra negra difuminada */
     }
 
-    .boton-aceptar {
-      background-color: var(--color-verdeoliva);
-      color: white;
+    .separador {
+      width: 60%;
+      margin: 0.5rem auto 2rem auto;
       border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
+      border-top: 2px solid var(--color-verdeoliva);
+    }
+
+    .titulo-seccion {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: var(--color-blanco);
+      margin-bottom: 1rem;
+    }
+
+    .subtitulo-seccion {
       font-family: 'Montserrat', sans-serif;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 6s infinite; /* Animación más lenta */
+      font-size: 1.2rem;
+      color: var(--color-blanco);
+      margin-bottom: 2rem;
     }
 
-    .boton-aceptar:hover {
-      background-color: var(--color-verdeoliva-oscuro);
-      transform: translateY(-3px);
-    }
-
-    @keyframes heartbeat {
-      0%, 20%, 40%, 60%, 80%, 100% {
-        transform: scale(1);
-      }
-      10%, 30%, 50%, 70%, 90% {
-        transform: scale(1.1); /* Efecto de latido */
-      }
-    }
-
-    /* Lluvia de hojas */
-    .hojas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 200;
-    }
-
-    .hoja {
-      position: absolute;
-      width: 30px;
-      height: 30px;
+    .cinta-verde {
       background-color: var(--color-verdeoliva);
-      border-radius: 50%;
-      animation: caer 5s linear infinite;
+      padding: 2rem 0;
     }
 
-    @keyframes caer {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(120vh) rotate(360deg);
-        opacity: 0;
-      }
+    .seccion-texto {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      padding: 1rem;
+      color: var(--color-verdeoliva-oscuro);
     }
 
-    /* Imagen ajustada */
-    .imagen-ajustada {
-      display: none;
-      width: 100%;
-      height: auto;
-      z-index: 300;
-    }
-
-    .imagen-ajustada.visible {
-      display: block;
-    }
-
-    /* Botón flotante de audio */
-    .boton-audio {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+    .boton {
+      display: inline-block;
       background-color: var(--color-verdeoliva);
-      color: white;
-      display: none; /* Oculto inicialmente */
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 400;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: var(--color-blanco);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      padding: 0.8rem 2rem;
       border: none;
+      border-radius: 5px;
+      margin: 1rem 0.5rem;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .boton-audio.visible {
-      display: flex; /* Mostrar el botón cuando sea visible */
-    }
-
-    .boton-audio:hover {
+    .boton:hover {
       background-color: var(--color-verdeoliva-oscuro);
-      transform: scale(1.1);
-    }
-
-    .icono-audio {
-      width: 24px;
-      height: 24px;
-    }
-
-    .animacion-sonido path {
-      animation: ondas 1.5s infinite ease-in-out;
-    }
-
-    .animacion-sonido path:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .animacion-sonido path:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .animacion-sonido path:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes ondas {
-      0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1);
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Pantalla Principal -->
-  <div class="pantalla-principal" id="pantallaPrincipal">
-    <h1 class="mensaje-principal">
-      Cada familia<br />
-      tiene su historia...<br />
-      ¿te gustaría<br />
-      participar en<br />
-      la nuestra?
-    </h1>
-    <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
+  <div class="seccion">
+    <h1 class="titulo-principal">Karina <br /> & <br /> Luis</h1>
+    <hr class="separador" />
   </div>
 
-  <!-- Lluvia de hojas -->
-  <div class="hojas" id="hojas"></div>
+  <div class="cinta-verde">
+    <h2 class="titulo-seccion">Ceremonia</h2>
+    <p class="subtitulo-seccion">Día, Lugar</p>
+  </div>
 
-  <!-- Imagen ajustada -->
-  <img id="imagenAjustada" class="imagen-ajustada" src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/anillo.jpg?raw=true" alt="Imagen de invitación">
+  <div class="cinta-verde">
+    <h2 class="titulo-seccion">Recepción</h2>
+    <p class="subtitulo-seccion">Día, Lugar</p>
+  </div>
 
-  <!-- Música de fondo -->
-  <audio id="musicaFondo" loop>
-    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
-    Tu navegador no soporta el elemento de audio.
-  </audio>
+  <div class="seccion">
+    <h2 class="titulo-principal">Galería de nuestro amor</h2>
+    <hr class="separador" />
+  </div>
 
-  <!-- Botón flotante de control de audio -->
-  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
-    <svg class="icono-audio animacion-sonido" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15 8a5 5 0 0 1 0 8"></path>
-      <path d="M19 5a9 9 0 0 1 0 14"></path>
-    </svg>
-  </button>
+  <div class="cinta-verde">
+    <h2 class="titulo-seccion">Fiesta</h2>
+    <p class="subtitulo-seccion">
+      Invitados, sin niños <br />
+      Código de vestimenta: Formal/Gala
+    </p>
+  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const pantallaPrincipal = document.getElementById('pantallaPrincipal');
-      const botonAceptar = document.getElementById('botonAceptar');
-      const hojas = document.getElementById('hojas');
-      const imagenAjustada = document.getElementById('imagenAjustada');
-      const musicaFondo = document.getElementById('musicaFondo');
-      const botonAudio = document.getElementById('botonAudio');
-      const iconoAudio = botonAudio.querySelector('.icono-audio');
+  <div class="seccion">
+    <h2 class="titulo-principal">Regalos</h2>
+    <p class="seccion-texto">+ Info</p>
+  </div>
 
-      let isPlaying = false;
-      let shouldResumeOnFocus = false;
+  <div class="seccion">
+    <h2 class="titulo-principal">Compartí con nosotros ese día</h2>
+    <p class="seccion-texto">
+      <button class="boton">Ingresar Link</button>
+    </p>
+  </div>
 
-      // Reproducir música con inicio gradual
-      function playMusic() {
-        musicaFondo.volume = 0; // Comienza con volumen 0
-        musicaFondo.play();
-        let fadeIn = setInterval(() => {
-          if (musicaFondo.volume < 1) {
-            musicaFondo.volume += 0.1;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100); // Incrementos cada 100ms
-        isPlaying = true;
-        iconoAudio.classList.add('animacion-sonido');
-      }
-
-      // Pausar música
-      function pauseMusic() {
-        musicaFondo.pause();
-        isPlaying = false;
-        iconoAudio.classList.remove('animacion-sonido');
-      }
-
-      // Toggle música (play/pause)
-      botonAudio.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
-        } else {
-          playMusic();
-        }
-      });
-
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
-      });
-
-      // Crear hojas dinámicamente (solo una vez)
-      function crearHojas() {
-        hojas.innerHTML = ''; // Limpiar hojas previamente generadas
-        for (let i = 0; i < 50; i++) {
-          const hoja = document.createElement('div');
-          hoja.classList.add('hoja');
-          hoja.style.left = Math.random() * 100 + 'vw';
-          hoja.style.animationDuration = Math.random() * 2 + 4 + 's';
-          hojas.appendChild(hoja);
-        }
-        setTimeout(() => {
-          hojas.innerHTML = ''; // Limpiar las hojas después de su animación
-        }, 5000); // Dura aproximadamente 5 segundos
-      }
-
-      // Acción al presionar "Sí, acepto"
-      botonAceptar.addEventListener('click', function () {
-        pantallaPrincipal.classList.add('oculta');
-        playMusic();
-
-        // Mostrar el botón de audio
-        botonAudio.classList.add('visible');
-
-        // Generar la lluvia de hojas
-        crearHojas();
-
-        // Mostrar imagen después de la lluvia de hojas
-        setTimeout(() => {
-          imagenAjustada.classList.add('visible');
-          setTimeout(() => {
-            imagenAjustada.classList.remove('visible'); // Ocultar la imagen después de 5 segundos
-          }, 5000);
-        }, 500);
-      });
-    });
-  </script>
+  <div class="seccion">
+    <h1 class="titulo-principal">Karina <br /> & <br /> Luis</h1>
+    <button class="boton">Sí, allí estaré.</button>
+    <button class="boton">Lo siento, no podré asistir.</button>
+  </div>
 </body>
 </html>
