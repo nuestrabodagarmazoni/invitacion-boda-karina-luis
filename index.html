@@ -243,6 +243,30 @@
     opacity: 0;
   }
 }
+
+/* Animación de caída con velocidades variables */
+@keyframes caer {
+  0% {
+    transform: translateY(-150px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Estilo base de las hojas */
+.hoja {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-verdeoliva);
+  border-radius: 50%;
+  animation: caer ease-out forwards; /* Animación con duración dinámica */
+  opacity: 1;
+}
+
     
   </style>
 </head>
@@ -395,7 +419,7 @@ function crearLluviaDeHojas() {
   hojasContainer.classList.add('hojas');
   document.body.appendChild(hojasContainer);
 
-  for (let i = 0; i < 250; i++) { // Cambiamos a 250 hojas
+  for (let i = 0; i < 350; i++) { // Cambiamos a 250 hojas
     const hoja = document.createElement('div');
     hoja.classList.add('hoja');
 
@@ -420,6 +444,43 @@ function crearLluviaDeHojas() {
   setTimeout(() => {
     hojasContainer.remove();
   }, 2000); // Duración total de la animación
+}
+
+// Función para crear la lluvia de hojas con diferentes velocidades
+function crearLluviaDeHojas() {
+  const hojasContainer = document.createElement('div');
+  hojasContainer.classList.add('hojas');
+  document.body.appendChild(hojasContainer);
+
+  for (let i = 0; i < 250; i++) { // 250 hojas
+    const hoja = document.createElement('div');
+    hoja.classList.add('hoja');
+
+    // Agregar clases adicionales para variaciones
+    if (Math.random() > 0.7) hoja.classList.add('dorada');
+    if (Math.random() > 0.5) hoja.classList.add('translucida');
+
+    // Posición inicial explosiva
+    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
+    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+
+    // Tamaños variados
+    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
+    hoja.style.width = 20 * sizeMultiplier + 'px';
+    hoja.style.height = 20 * sizeMultiplier + 'px';
+
+    // Velocidades variables de caída
+    const velocidad = Math.random() > 0.5 ? 1 : Math.random() > 0.33 ? 2 : 3; // Rápida, media, lenta
+    hoja.style.animationDuration = velocidad + 's';
+
+    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto explosivo
+    hojasContainer.appendChild(hoja);
+  }
+
+  // Eliminar las hojas después de la animación
+  setTimeout(() => {
+    hojasContainer.remove();
+  }, 3000); // Máxima duración de la animación (3 segundos)
 }
       
       // Acción al presionar "Sí, acepto"
