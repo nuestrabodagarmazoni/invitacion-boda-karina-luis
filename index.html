@@ -162,53 +162,66 @@
     </svg>
   </button>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const pantallaPrincipal = document.getElementById('pantallaPrincipal');
-      const botonAceptar = document.getElementById('botonAceptar');
-      const musicaFondo = document.getElementById('musicaFondo');
-      const botonAudio = document.getElementById('botonAudio');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const pantallaPrincipal = document.getElementById('pantallaPrincipal');
+    const botonAceptar = document.getElementById('botonAceptar');
+    const musicaFondo = document.getElementById('musicaFondo');
+    const botonAudio = document.getElementById('botonAudio');
 
-      let isPlaying = false;
+    let isPlaying = false;
+    let shouldResumeOnFocus = false;
 
-      // Reproducir música con inicio gradual
-      function playMusic() {
-        musicaFondo.volume = 0;
-        musicaFondo.play();
-        let fadeIn = setInterval(() => {
-          if (musicaFondo.volume < 1) {
-            musicaFondo.volume += 0.1;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100);
-        isPlaying = true;
-        botonAudio.classList.add('on'); // Cambiar estado del botón
+    // Reproducir música con inicio gradual
+    function playMusic() {
+      musicaFondo.volume = 0;
+      musicaFondo.play();
+      let fadeIn = setInterval(() => {
+        if (musicaFondo.volume < 1) {
+          musicaFondo.volume += 0.1;
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 100);
+      isPlaying = true;
+      botonAudio.classList.add('on'); // Cambiar estado del botón
+    }
+
+    // Pausar música
+    function pauseMusic() {
+      musicaFondo.pause();
+      isPlaying = false;
+      botonAudio.classList.remove('on'); // Cambiar estado del botón
+    }
+
+    // Alternar reproducción/pausa de música
+    botonAudio.addEventListener('click', function () {
+      if (isPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
       }
+    });
 
-      // Pausar música
-      function pauseMusic() {
-        musicaFondo.pause();
-        isPlaying = false;
-        botonAudio.classList.remove('on'); // Cambiar estado del botón
-      }
-
-      // Alternar reproducción/pausa de música
-      botonAudio.addEventListener('click', function () {
+    // Pausar música automáticamente al salir de la pestaña
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
         if (isPlaying) {
           pauseMusic();
-        } else {
-          playMusic();
+          shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
         }
-      });
-
-      // Acción al presionar "Sí, acepto"
-      botonAceptar.addEventListener('click', function () {
-        pantallaPrincipal.classList.add('oculta');
+      } else if (shouldResumeOnFocus) {
         playMusic();
-        botonAudio.classList.add('visible'); // Mostrar el botón de audio
-      });
+        shouldResumeOnFocus = false; // Ya no necesita reanudar
+      }
     });
-  </script>
-</body>
+
+    // Acción al presionar "Sí, acepto"
+    botonAceptar.addEventListener('click', function () {
+      pantallaPrincipal.classList.add('oculta');
+      playMusic();
+      botonAudio.classList.add('visible'); // Mostrar el botón de audio
+    });
+  });
+</script></body>
 </html>
