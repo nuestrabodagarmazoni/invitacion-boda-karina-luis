@@ -36,7 +36,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Agrega tu link de fondo */
+      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true');
       background-size: cover;
       background-position: center;
       padding: 2rem;
@@ -59,8 +59,8 @@
       line-height: 1.4;
       margin-bottom: 3rem;
       color: var(--color-verdeoliva);
-      font-weight: 700; /* Negrita */
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra negra difuminada */
+      font-weight: 700;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     }
 
     .boton-aceptar {
@@ -69,12 +69,11 @@
       border: none;
       padding: 1rem 2.5rem;
       font-size: 1.2rem;
-      font-family: 'Montserrat', sans-serif;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 3s infinite; /* Latido más lento */
+      animation: heartbeat 3s infinite;
     }
 
     .boton-aceptar:hover {
@@ -87,20 +86,20 @@
         transform: scale(1);
       }
       25%, 75% {
-        transform: scale(1.1); /* Efecto de latido */
+        transform: scale(1.1);
       }
     }
 
     /* Imagen ascendente */
     .imagen-ascendente {
       position: fixed;
-      bottom: -100px; /* Comienza fuera de la pantalla */
+      bottom: -100px;
       left: 0;
-      width: 100%; /* Ajusta al ancho total de la pantalla */
-      height: auto; /* Mantiene la proporción */
+      width: 100%;
+      height: auto;
       opacity: 0;
       animation: subir 3s ease-in-out forwards;
-      z-index: 50; /* Aparece debajo del fondo */
+      z-index: 50;
     }
 
     @keyframes subir {
@@ -109,7 +108,7 @@
         opacity: 0;
       }
       100% {
-        top: 0; /* Asciende hasta el borde superior de la pantalla */
+        top: 0;
         opacity: 1;
       }
     }
@@ -124,7 +123,7 @@
       border-radius: 50%;
       background-color: var(--color-verdeoliva);
       color: white;
-      display: none; /* Oculto inicialmente */
+      display: none;
       justify-content: center;
       align-items: center;
       cursor: pointer;
@@ -135,7 +134,7 @@
     }
 
     .boton-audio.visible {
-      display: flex; /* Mostrar el botón cuando sea visible */
+      display: flex;
     }
 
     .boton-audio:hover {
@@ -150,101 +149,64 @@
     }
 
     .boton-audio.on .icono-audio {
-      fill: var(--color-dorado); /* Cambiar color cuando está encendido */
-}
-/* Contenedor de hojas */
-.hojas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 200;
-  overflow: hidden;
-}
+      fill: var(--color-dorado);
+    }
 
-/* Estilo base de las hojas */
-.hoja {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-verdeoliva);
-  border-radius: 50%;
-  animation: caer 3s ease-out forwards;
-  opacity: 1;
-}
+    /* Hojas */
+    .hojas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 200;
+      overflow: hidden;
+    }
 
-/* Hojas doradas */
-.hoja.dorada {
-  background-color: var(--color-dorado);
-  opacity: 0.9;
-}
+    .hoja {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--color-verdeoliva);
+      border-radius: 50%;
+      animation: caer 3s ease-out forwards;
+      opacity: 1;
+    }
 
-/* Hojas translúcidas */
-.hoja.translucida {
-  opacity: 0.5;
-}
+    .hoja.dorada {
+      background-color: var(--color-dorado);
+    }
 
-/* Animación de caída */
-@keyframes caer {
-  0% {
-    transform: translateY(-150px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-/* Efecto de opacidad para la imagen "manos" */
-.imagen-ascendente {
-  position: fixed;
-  bottom: -100px; /* Comienza fuera de la pantalla */
-  left: 0;
-  width: 100%; /* Ajusta al ancho total de la pantalla */
-  height: auto; /* Mantiene la proporción */
-  opacity: 0; /* Inicialmente invisible */
-  animation: subir 3s ease-in-out forwards, aparecer 3s ease-in-out forwards;
-  z-index: 50; /* Aparece debajo del fondo */
-}
+    .hoja.translucida {
+      opacity: 0.5;
+    }
 
-@keyframes aparecer {
-  0% {
-    opacity: 0; /* Invisible */
-  }
-  100% {
-    opacity: 1; /* Totalmente visible */
-  }
-}
-
-
-    
+    @keyframes caer {
+      0% {
+        transform: translateY(-150px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Pantalla Principal -->
   <div class="pantalla-principal" id="pantallaPrincipal">
-    <h1 class="mensaje-principal">
-      Cada familia<br />
-      tiene su historia...<br />
-      ¿te gustaría<br />
-      participar en<br />
-      la nuestra?
-    </h1>
+    <h1 class="mensaje-principal">Cada familia<br />tiene su historia...<br />¿te gustaría<br />participar en<br />la nuestra?</h1>
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
-  <!-- Imagen ascendente -->
   <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen decorativa" class="imagen-ascendente" id="imagenAscendente" />
 
-  <!-- Música de fondo -->
   <audio id="musicaFondo" loop>
     <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
     Tu navegador no soporta el elemento de audio.
   </audio>
 
-  <!-- Botón flotante de control de audio -->
   <button class="boton-audio" id="botonAudio" aria-label="Control de música">
     <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -259,12 +221,7 @@
       const botonAceptar = document.getElementById('botonAceptar');
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
-      const imagenAscendente = document.getElementById('imagenAscendente');
 
-      let isPlaying = false;
-      let shouldResumeOnFocus = false;
-
-      // Reproducir música con inicio gradual
       function playMusic() {
         musicaFondo.volume = 0;
         musicaFondo.play();
@@ -275,219 +232,47 @@
             clearInterval(fadeIn);
           }
         }, 100);
-        isPlaying = true;
-        botonAudio.classList.add('on'); // Cambiar estado del botón
       }
 
-      // Pausar música
       function pauseMusic() {
         musicaFondo.pause();
-        isPlaying = false;
-        botonAudio.classList.remove('on'); // Cambiar estado del botón
       }
 
-      // Alternar reproducción/pausa de música
       botonAudio.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
+        if (musicaFondo.paused) {
+          playMusic();
         } else {
-          playMusic();
+          pauseMusic();
         }
       });
 
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
-      });
-
-// Función para crear la lluvia de hojas con más cantidad, tamaños variados, y duración fija
-function crearLluviaDeHojas() {
-  const hojasContainer = document.createElement('div');
-  hojasContainer.classList.add('hojas');
-  document.body.appendChild(hojasContainer);
-
-  for (let i = 0; i < 500; i++) { // 500 hojas
-    const hoja = document.createElement('div');
-    hoja.classList.add('hoja');
-
-    // Agregar clases adicionales para variaciones
-    if (Math.random() > 0.7) hoja.classList.add('dorada');
-    if (Math.random() > 0.5) hoja.classList.add('translucida');
-
-    // Posición inicial aleatoria
-    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
-    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-
-    // Tamaños variados
-    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
-    hoja.style.width = 20 * sizeMultiplier + 'px';
-    hoja.style.height = 20 * sizeMultiplier + 'px';
-
-    // Velocidades variables de caída (todas duran 3 segundos)
-    hoja.style.animationDuration = '3s';
-
-    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto lluvia
-    hojasContainer.appendChild(hoja);
-  }
-
-  // Eliminar las hojas después de la animación
-  setTimeout(() => {
-    hojasContainer.remove();
-  }, 3000); // Duración fija de 3 segundos
-}
-
-// Llamada a la función al presionar el botón "Aceptar"
-botonAceptar.addEventListener('click', function () {
-  pantallaPrincipal.classList.add('oculta');
-  playMusic();
-  botonAudio.classList.add('visible'); // Mostrar botón de audio
-  crearLluviaDeHojas(); // Inicia la lluvia de hojas
-});
-    // Agregar clases adicionales para variaciones
-    if (Math.random() > 0.7) hoja.classList.add('dorada');
-    if (Math.random() > 0.5) hoja.classList.add('translucida');
-
-    // Posición inicial explosiva (siempre fuera de pantalla superior)
-    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
-    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto explosivo
-
-    hojasContainer.appendChild(hoja);
-  }
-
-  // Eliminar las hojas después de la animación
-  setTimeout(() => {
-    hojasContainer.remove();
-  }, 2000); // Duración total de la animación
-}
-
-botonAceptar.addEventListener('click', function () {
-  pantallaPrincipal.classList.add('oculta');
-  playMusic();
-  botonAudio.classList.add('visible'); // Mostrar botón de audio
-  crearLluviaDeHojas(); // Inicia la lluvia de hojas
-});
-
-// Función para crear la lluvia de hojas con más cantidad y tamaños variados
-function crearLluviaDeHojas() {
-  const hojasContainer = document.createElement('div');
-  hojasContainer.classList.add('hojas');
-  document.body.appendChild(hojasContainer);
-
-  for (let i = 0; i < 350; i++) { // Cambiamos a 250 hojas
-    const hoja = document.createElement('div');
-    hoja.classList.add('hoja');
-
-    // Agregar clases adicionales para variaciones
-    if (Math.random() > 0.7) hoja.classList.add('dorada');
-    if (Math.random() > 0.5) hoja.classList.add('translucida');
-
-    // Posición inicial explosiva
-    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
-    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-
-    // Tamaños variados
-    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
-    hoja.style.width = 20 * sizeMultiplier + 'px';
-    hoja.style.height = 20 * sizeMultiplier + 'px';
-
-    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto explosivo
-    hojasContainer.appendChild(hoja);
-  }
-
-  // Eliminar las hojas después de la animación
-  setTimeout(() => {
-    hojasContainer.remove();
-  }, 2000); // Duración total de la animación
-}
-
-// Función para crear la lluvia de hojas con diferentes velocidades
-function crearLluviaDeHojas() {
-  const hojasContainer = document.createElement('div');
-  hojasContainer.classList.add('hojas');
-  document.body.appendChild(hojasContainer);
-
-  for (let i = 0; i < 250; i++) { // 250 hojas
-    const hoja = document.createElement('div');
-    hoja.classList.add('hoja');
-
-    // Agregar clases adicionales para variaciones
-    if (Math.random() > 0.7) hoja.classList.add('dorada');
-    if (Math.random() > 0.5) hoja.classList.add('translucida');
-
-    // Posición inicial explosiva
-    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
-    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-
-    // Tamaños variados
-    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
-    hoja.style.width = 20 * sizeMultiplier + 'px';
-    hoja.style.height = 20 * sizeMultiplier + 'px';
-
-    // Velocidades variables de caída
-    const velocidad = Math.random() > 0.5 ? 1 : Math.random() > 0.33 ? 2 : 3; // Rápida, media, lenta
-    hoja.style.animationDuration = velocidad + 's';
-
-    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto explosivo
-    hojasContainer.appendChild(hoja);
-  }
-
-  // Eliminar las hojas después de la animación
-  setTimeout(() => {
-    hojasContainer.remove();
-  }, 3000); // Máxima duración de la animación (3 segundos)
-}
-
-// Función para crear la lluvia de hojas con más cantidad, tamaños variados, y duración fija
-function crearLluviaDeHojas() {
-  const hojasContainer = document.createElement('div');
-  hojasContainer.classList.add('hojas');
-  document.body.appendChild(hojasContainer);
-
-  for (let i = 0; i < 500; i++) { // 500 hojas
-    const hoja = document.createElement('div');
-    hoja.classList.add('hoja');
-
-    // Agregar clases adicionales para variaciones
-    if (Math.random() > 0.7) hoja.classList.add('dorada');
-    if (Math.random() > 0.5) hoja.classList.add('translucida');
-
-    // Posición inicial aleatoria
-    hoja.style.top = Math.random() * -50 + 'px'; // Posición aleatoria fuera de pantalla
-    hoja.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-
-    // Tamaños variados
-    const sizeMultiplier = Math.random() > 0.66 ? 2 : Math.random() > 0.33 ? 0.5 : 1; // Doble, mitad o normal
-    hoja.style.width = 20 * sizeMultiplier + 'px';
-    hoja.style.height = 20 * sizeMultiplier + 'px';
-
-    // Velocidades variables de caída (todas duran 3 segundos)
-    hoja.style.animationDuration = '3s';
-
-    hoja.style.animationDelay = Math.random() * 0.2 + 's'; // Leve retraso para efecto lluvia
-    hojasContainer.appendChild(hoja);
-  }
-
-  // Eliminar las hojas después de la animación
-  setTimeout(() => {
-    hojasContainer.remove();
-  }, 3000); // Duración fija de 3 segundos
-}
-      
-      // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
         playMusic();
-        botonAudio.classList.add('visible'); // Mostrar botón de audio
+        botonAudio.classList.add('visible');
+        crearLluviaDeHojas();
       });
+
+      function crearLluviaDeHojas() {
+        const hojasContainer = document.createElement('div');
+        hojasContainer.classList.add('hojas');
+        document.body.appendChild(hojasContainer);
+
+        for (let i = 0; i < 500; i++) {
+          const hoja = document.createElement('div');
+          hoja.classList.add('hoja');
+          if (Math.random() > 0.7) hoja.classList.add('dorada');
+          if (Math.random() > 0.5) hoja.classList.add('translucida');
+          hoja.style.top = Math.random() * -50 + 'px';
+          hoja.style.left = Math.random() * 100 + 'vw';
+          hoja.style.width = `${Math.random() > 0.66 ? 40 : 10}px`;
+          hoja.style.height = hoja.style.width;
+          hoja.style.animationDelay = `${Math.random() * 0.2}s`;
+          hojasContainer.appendChild(hoja);
+        }
+
+        setTimeout(() => hojasContainer.remove(), 3000);
+      }
     });
   </script>
 </body>
