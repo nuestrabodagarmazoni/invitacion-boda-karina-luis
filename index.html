@@ -88,68 +88,54 @@
       }
     }
 
-    .boton-audio {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--color-verdeoliva);
-      color: white;
+    .imagen-transicion {
       display: none; /* Oculto inicialmente */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-blanco);
+      background-size: cover;
+      background-position: center;
+      z-index: 150;
+      opacity: 0;
+      transition: opacity 3s ease; /* Transición de desvanecimiento */
+    }
+
+    .imagen-transicion.visible {
+      display: block;
+      opacity: 1; /* Hacer visible con desvanecimiento */
+    }
+
+    .seccion {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-      z-index: 200;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border: none;
-      transition: all 0.3s ease;
+      padding: 5rem 2rem;
+      text-align: center;
     }
 
-    .boton-audio.visible {
-      display: flex; /* Mostrar el botón cuando sea visible */
+    .titulo-seccion {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      color: var(--color-verdeoliva);
+      margin-bottom: 2rem;
+      font-weight: 600;
     }
 
-    .boton-audio:hover {
-      background-color: var(--color-verdeoliva-oscuro);
-      transform: scale(1.1);
-    }
-
-    .icono-audio {
-      width: 24px;
-      height: 24px;
-    }
-
-    .animacion-sonido path {
-      animation: ondas 1.5s infinite ease-in-out;
-    }
-
-    .animacion-sonido path:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .animacion-sonido path:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .animacion-sonido path:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes ondas {
-      0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .contenido-seccion {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      line-height: 1.8;
     }
   </style>
 </head>
 <body>
+  <!-- Pantalla Principal -->
   <div class="pantalla-principal" id="pantallaPrincipal">
     <h1 class="mensaje-principal">
       Cada familia<br />
@@ -161,81 +147,44 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
-  <audio id="musicaFondo" loop>
-    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
-    Tu navegador no soporta el elemento de audio.
-  </audio>
+  <!-- Imagen de transición -->
+  <div id="imagenTransicion" class="imagen-transicion" style="background-image: url('https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/imagen.jpg');"></div>
 
-  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
-    <svg class="icono-audio animacion-sonido" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15 8a5 5 0 0 1 0 8"></path>
-      <path d="M19 5a9 9 0 0 1 0 14"></path>
-    </svg>
-  </button>
+  <!-- Secciones de contenido -->
+  <div id="contenido">
+    <section class="seccion">
+      <h2 class="titulo-seccion">Nuestra Historia</h2>
+      <div class="contenido-seccion">
+        <p>Estamos muy emocionados de compartir este día tan especial contigo.</p>
+      </div>
+    </section>
+    <section class="seccion">
+      <h2 class="titulo-seccion">Detalles del Evento</h2>
+      <div class="contenido-seccion">
+        <p>Fecha, lugar y más información importante.</p>
+      </div>
+    </section>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
-      const musicaFondo = document.getElementById('musicaFondo');
-      const botonAudio = document.getElementById('botonAudio');
-      const iconoAudio = botonAudio.querySelector('.icono-audio');
-
-      let isPlaying = false;
-      let shouldResumeOnFocus = false;
-
-      // Reproducir música con inicio gradual
-      function playMusic() {
-        musicaFondo.volume = 0; // Comienza con volumen 0
-        musicaFondo.play();
-        let fadeIn = setInterval(() => {
-          if (musicaFondo.volume < 1) {
-            musicaFondo.volume += 0.1;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100); // Incrementos cada 100ms
-        isPlaying = true;
-        iconoAudio.classList.add('animacion-sonido');
-      }
-
-      // Pausar música
-      function pauseMusic() {
-        musicaFondo.pause();
-        isPlaying = false;
-        iconoAudio.classList.remove('animacion-sonido');
-      }
-
-      // Toggle música (play/pause)
-      botonAudio.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
-        } else {
-          playMusic();
-        }
-      });
+      const imagenTransicion = document.getElementById('imagenTransicion');
+      const contenido = document.getElementById('contenido');
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
-        playMusic();
+        
+        // Mostrar la imagen con la transición
+        imagenTransicion.classList.add('visible');
 
-        // Mostrar botón flotante de audio
-        botonAudio.classList.add('visible');
-      });
-
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
+        // Mantener la imagen visible por 5 segundos, luego scroll al contenido
+        setTimeout(() => {
+          imagenTransicion.classList.remove('visible'); // Ocultar imagen
+          contenido.scrollIntoView({ behavior: 'smooth' }); // Scroll al contenido
+        }, 5000);
       });
     });
   </script>
