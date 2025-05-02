@@ -12,7 +12,7 @@
     :root {
       --color-blanco: #ffffff;
       --color-verdeoliva: #8A9A5B;
-      --color-verdeoliva-oscuro: #5c6633;
+      --color-dorado: #DAA520;
       --color-gris-claro: #f5f5f5;
     }
 
@@ -56,7 +56,7 @@
       font-size: 2.8rem;
       line-height: 1.4;
       margin-bottom: 3rem;
-      color: var(--color-verdeoliva-oscuro);
+      color: var(--color-verdeoliva);
       font-weight: 700; /* Negrita */
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra negra difuminada */
     }
@@ -72,11 +72,11 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 6s infinite; /* Animación más lenta */
+      animation: heartbeat 3s infinite; /* Latido más lento */
     }
 
     .boton-aceptar:hover {
-      background-color: var(--color-verdeoliva-oscuro);
+      background-color: #5c6633;
       transform: translateY(-3px);
     }
 
@@ -102,16 +102,27 @@
 
     .hoja {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       background-color: var(--color-verdeoliva);
       border-radius: 50%;
-      animation: caer 5s linear;
+      opacity: 0.8; /* Transparencia inicial */
+      animation: caer 2s linear forwards;
+    }
+
+    .hoja.dorada {
+      background-color: var(--color-dorado);
+      opacity: 0.9;
+    }
+
+    .hoja.translucida {
+      background-color: var(--color-verdeoliva);
+      opacity: 0.5;
     }
 
     @keyframes caer {
       0% {
-        transform: translateY(-100px) rotate(0deg);
+        transform: translateY(-50px) rotate(0deg);
         opacity: 1;
       }
       100% {
@@ -157,40 +168,13 @@
     }
 
     .boton-audio:hover {
-      background-color: var(--color-verdeoliva-oscuro);
+      background-color: #5c6633;
       transform: scale(1.1);
     }
 
     .icono-audio {
       width: 24px;
       height: 24px;
-    }
-
-    .animacion-sonido path {
-      animation: ondas 1.5s infinite ease-in-out;
-    }
-
-    .animacion-sonido path:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .animacion-sonido path:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .animacion-sonido path:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes ondas {
-      0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1);
-      }
     }
   </style>
 </head>
@@ -221,7 +205,7 @@
 
   <!-- Botón flotante de control de audio -->
   <button class="boton-audio" id="botonAudio" aria-label="Control de música">
-    <svg class="icono-audio animacion-sonido" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
       <path d="M15 8a5 5 0 0 1 0 8"></path>
       <path d="M19 5a9 9 0 0 1 0 14"></path>
@@ -236,13 +220,12 @@
       const imagenAjustada = document.getElementById('imagenAjustada');
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
-      const iconoAudio = botonAudio.querySelector('.icono-audio');
+
       let isPlaying = false;
-      let shouldResumeOnFocus = false;
 
       // Reproducir música con inicio gradual
       function playMusic() {
-        musicaFondo.volume = 0; // Comienza con volumen 0
+        musicaFondo.volume = 0;
         musicaFondo.play();
         let fadeIn = setInterval(() => {
           if (musicaFondo.volume < 1) {
@@ -250,68 +233,34 @@
           } else {
             clearInterval(fadeIn);
           }
-        }, 100); // Incrementos cada 100ms
+        }, 100);
         isPlaying = true;
-        iconoAudio.classList.add('animacion-sonido');
       }
 
-      // Pausar música
-      function pauseMusic() {
-        musicaFondo.pause();
-        isPlaying = false;
-        iconoAudio.classList.remove('animacion-sonido');
-      }
-
-      // Toggle música (play/pause)
-      botonAudio.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
-        } else {
-          playMusic();
-        }
-      });
-
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
-      });
-
-      // Crear hojas dinámicamente (solo una vez)
+      // Crear lluvia de hojas (una sola vez)
       function crearHojas() {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 100; i++) {
           const hoja = document.createElement('div');
           hoja.classList.add('hoja');
+          if (Math.random() > 0.7) hoja.classList.add('dorada');
+          if (Math.random() > 0.5) hoja.classList.add('translucida');
           hoja.style.left = Math.random() * 100 + 'vw';
-          hoja.style.animationDuration = Math.random() * 2 + 4 + 's';
+          hoja.style.animationDelay = Math.random() * 0.5 + 's';
           hojas.appendChild(hoja);
         }
         setTimeout(() => {
-          hojas.innerHTML = ''; // Limpiar hojas después de la animación
-        }, 5000); // Duración de la animación
+          hojas.innerHTML = ''; // Limpiar hojas después de animación
+        }, 2000); // Duración total de la lluvia
       }
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
         playMusic();
-
-        // Mostrar el botón de audio
-        botonAudio.classList.add('visible');
-
-        // Generar la lluvia de hojas (solo una vez)
-        crearHojas();
-
-        // Mostrar imagen después de la lluvia de hojas
+        botonAudio.classList.add('visible'); // Mostrar botón de audio
+        crearHojas(); // Generar lluvia de hojas
         setTimeout(() => {
-          imagenAjustada.classList.add('visible');
+          imagenAjustada.classList.add('visible'); // Mostrar la imagen
         }, 500);
       });
     });
