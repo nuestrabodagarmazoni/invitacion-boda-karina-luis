@@ -89,24 +89,6 @@
       }
     }
 
-    /* Efecto de destello */
-    .destello {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 60%);
-      opacity: 0;
-      z-index: 150;
-      pointer-events: none;
-      transition: opacity 0.8s ease;
-    }
-
-    .destello.visible {
-      opacity: 1;
-    }
-
     /* Lluvia de hojas */
     .hojas {
       position: fixed;
@@ -149,6 +131,67 @@
     .imagen-ajustada.visible {
       display: block;
     }
+
+    /* Botón flotante de audio */
+    .boton-audio {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-verdeoliva);
+      color: white;
+      display: none; /* Oculto inicialmente */
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 400;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .boton-audio.visible {
+      display: flex; /* Mostrar el botón cuando sea visible */
+    }
+
+    .boton-audio:hover {
+      background-color: var(--color-verdeoliva-oscuro);
+      transform: scale(1.1);
+    }
+
+    .icono-audio {
+      width: 24px;
+      height: 24px;
+    }
+
+    .animacion-sonido path {
+      animation: ondas 1.5s infinite ease-in-out;
+    }
+
+    .animacion-sonido path:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .animacion-sonido path:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .animacion-sonido path:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes ondas {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
 <body>
@@ -164,25 +207,87 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
-  <!-- Efecto de destello -->
-  <div class="destello" id="destello"></div>
-
   <!-- Lluvia de hojas -->
   <div class="hojas" id="hojas"></div>
 
   <!-- Imagen ajustada -->
   <img id="imagenAjustada" class="imagen-ajustada" src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/anillo.jpg?raw=true" alt="Imagen de invitación">
 
+  <!-- Música de fondo -->
+  <audio id="musicaFondo" loop>
+    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <!-- Botón flotante de control de audio -->
+  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
+    <svg class="icono-audio animacion-sonido" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 8a5 5 0 0 1 0 8"></path>
+      <path d="M19 5a9 9 0 0 1 0 14"></path>
+    </svg>
+  </button>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
-      const destello = document.getElementById('destello');
       const hojas = document.getElementById('hojas');
       const imagenAjustada = document.getElementById('imagenAjustada');
+      const musicaFondo = document.getElementById('musicaFondo');
+      const botonAudio = document.getElementById('botonAudio');
+      const iconoAudio = botonAudio.querySelector('.icono-audio');
 
-      // Crear hojas dinámicamente
+      let isPlaying = false;
+      let shouldResumeOnFocus = false;
+
+      // Reproducir música con inicio gradual
+      function playMusic() {
+        musicaFondo.volume = 0; // Comienza con volumen 0
+        musicaFondo.play();
+        let fadeIn = setInterval(() => {
+          if (musicaFondo.volume < 1) {
+            musicaFondo.volume += 0.1;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100); // Incrementos cada 100ms
+        isPlaying = true;
+        iconoAudio.classList.add('animacion-sonido');
+      }
+
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
+        iconoAudio.classList.remove('animacion-sonido');
+      }
+
+      // Toggle música (play/pause)
+      botonAudio.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // Pausar música automáticamente al salir de la pestaña
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
+          }
+        } else if (shouldResumeOnFocus) {
+          playMusic();
+          shouldResumeOnFocus = false; // Ya no necesita reanudar
+        }
+      });
+
+      // Crear hojas dinámicamente (solo una vez)
       function crearHojas() {
+        hojas.innerHTML = ''; // Limpiar hojas previamente generadas
         for (let i = 0; i < 50; i++) {
           const hoja = document.createElement('div');
           hoja.classList.add('hoja');
@@ -190,27 +295,29 @@
           hoja.style.animationDuration = Math.random() * 2 + 4 + 's';
           hojas.appendChild(hoja);
         }
+        setTimeout(() => {
+          hojas.innerHTML = ''; // Limpiar las hojas después de su animación
+        }, 5000); // Dura aproximadamente 5 segundos
       }
-      crearHojas();
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta');
+        playMusic();
 
-        // Mostrar efecto de destello
-        destello.classList.add('visible');
-        setTimeout(() => {
-          destello.classList.remove('visible');
-        }, 800);
+        // Mostrar el botón de audio
+        botonAudio.classList.add('visible');
 
-        // Mostrar imagen y hojas
+        // Generar la lluvia de hojas
+        crearHojas();
+
+        // Mostrar imagen después de la lluvia de hojas
         setTimeout(() => {
           imagenAjustada.classList.add('visible');
           setTimeout(() => {
-            imagenAjustada.classList.remove('visible');
-            hojas.innerHTML = ""; // Limpiar las hojas
-          }, 5000); // Mantener la imagen visible por 5 segundos
-        }, 800);
+            imagenAjustada.classList.remove('visible'); // Ocultar la imagen después de 5 segundos
+          }, 5000);
+        }, 500);
       });
     });
   </script>
