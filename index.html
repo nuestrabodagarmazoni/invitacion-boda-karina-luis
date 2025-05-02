@@ -312,6 +312,28 @@
     opacity: 0;
   }
 }
+/* Efecto de opacidad para la imagen "manos" */
+.imagen-ascendente {
+  position: fixed;
+  bottom: -100px; /* Comienza fuera de la pantalla */
+  left: 0;
+  width: 100%; /* Ajusta al ancho total de la pantalla */
+  height: auto; /* Mantiene la proporción */
+  opacity: 0; /* Inicialmente invisible */
+  animation: subir 3s ease-in-out forwards, aparecer 3s ease-in-out forwards;
+  z-index: 50; /* Aparece debajo del fondo */
+}
+
+@keyframes aparecer {
+  0% {
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    opacity: 1; /* Totalmente visible */
+  }
+}
+
+
     
   </style>
 </head>
