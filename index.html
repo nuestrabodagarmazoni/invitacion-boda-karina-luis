@@ -132,6 +132,28 @@
     .boton-audio.on .icono-audio {
       fill: var(--color-dorado);
     }
+/* Imagen animada desde el borde inferior */
+.imagen-animada {
+  position: fixed;
+  bottom: -100%; /* Comienza fuera del borde inferior */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta el centro a la mitad */
+  width: auto; /* Mantiene la proporción */
+  height: 80vh; /* Ajusta la altura al 80% de la pantalla */
+  animation: entrarDesdeAbajo 3s ease-in-out forwards;
+}
+
+/* Animación para que la imagen suba */
+@keyframes entrarDesdeAbajo {
+  0% {
+    bottom: -100%; /* Fuera de la pantalla */
+  }
+  100% {
+    bottom: 0; /* Hasta el borde superior */
+  }
+}
+
+    
   </style>
 </head>
 <body>
@@ -161,6 +183,13 @@
       <path d="M19 5a9 9 0 0 1 0 14"></path>
     </svg>
   </button>
+
+  <!-- Otros elementos de tu página -->
+
+  <!-- Imagen animada -->
+  <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada">
+
+  <!-- Otros elementos de tu página -->
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
