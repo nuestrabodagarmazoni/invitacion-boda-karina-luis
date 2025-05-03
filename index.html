@@ -152,7 +152,32 @@
     bottom: 0; /* Hasta el borde superior */
   }
 }
+<head>
+  <style>
+    /* Pega el bloque CSS aquí */
+    .imagen-animada {
+      position: fixed;
+      bottom: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      height: 80vh;
+    }
 
+    .imagen-animada.activa {
+      animation: entrarDesdeAbajo 3s ease-in-out forwards;
+    }
+
+    @keyframes entrarDesdeAbajo {
+      0% {
+        bottom: -100%;
+      }
+      100% {
+        bottom: 0;
+      }
+    }
+  </style>
+</head>
     
   </style>
 </head>
@@ -189,6 +214,13 @@
   <!-- Imagen animada -->
   <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada">
 
+  <!-- Botón "Sí, acepto" -->
+  <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
+  
+  <!-- Imagen animada -->
+  <img src="TU_LINK_DE_IMAGEN" alt="Imagen animada" class="imagen-animada">
+</body>
+  
   <!-- Otros elementos de tu página -->
 
 <script>
@@ -252,5 +284,18 @@
       botonAudio.classList.add('visible'); // Mostrar el botón de audio
     });
   });
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const pantallaPrincipal = document.getElementById('pantallaPrincipal');
+    const botonAceptar = document.getElementById('botonAceptar');
+    const imagenAnimada = document.querySelector('.imagen-animada');
+
+    // Acción al presionar "Sí, acepto"
+    botonAceptar.addEventListener('click', function () {
+      pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
+      imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
+    });
+  });
+</script>
 </script></body>
 </html>
