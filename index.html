@@ -30,17 +30,17 @@
       overflow-x: hidden;
     }
 
-    /* Imagen "welcome" centrada */
+    /* Pantalla principal */
     .pantalla-principal {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Link de fondo */
-      background-size: auto 100%; /* Ajusta al alto de la pantalla */
-      background-position: center; /* Centra la imagen */
-      background-repeat: no-repeat; /* Evita repetición */
+      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true');
+      background-size: auto 100%;
+      background-position: center;
+      background-repeat: no-repeat;
       padding: 2rem;
       text-align: center;
       position: fixed;
@@ -61,10 +61,10 @@
       font-size: 2.8rem;
       line-height: 1.4;
       margin-bottom: 3rem;
-      color: var(--color-verdeoliva); /* Color interno de las letras */
-      font-weight: 700; /* Negrita */
-      text-shadow: 2px 2px var(--color-blanco); /* Sombra para resaltar */
-      -webkit-text-stroke: 1px var(--color-gris-oscuro); /* Borde gris oscuro alrededor de las letras */
+      color: var(--color-verdeoliva);
+      font-weight: 700;
+      text-shadow: 2px 2px var(--color-blanco);
+      -webkit-text-stroke: 1px var(--color-gris-oscuro);
     }
 
     /* Botón principal */
@@ -78,7 +78,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 3s infinite; /* Latido más lento */
+      animation: heartbeat 3s infinite;
     }
 
     .boton-aceptar:hover {
@@ -91,37 +91,62 @@
         transform: scale(1);
       }
       25%, 75% {
-        transform: scale(1.1); /* Efecto de latido */
+        transform: scale(1.1);
       }
     }
 
     /* Imagen animada desde el borde inferior */
     .imagen-animada {
       position: fixed;
-      bottom: -100%; /* Comienza fuera del borde inferior */
-      left: 50%; /* Centra horizontalmente */
-      transform: translateX(-50%); /* Ajusta el centro a la mitad */
-      width: 100%; /* Ajustar al 100% del ancho */
-      height: auto; /* Mantener la proporción */
-      animation: entrarDesdeAbajo 3s ease-in-out forwards;
+      bottom: -100%; /* Inicialmente fuera de la pantalla */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: auto;
     }
 
-    /* Clase para activar la animación */
     .imagen-animada.activa {
       animation: entrarDesdeAbajo 3s ease-in-out forwards;
     }
 
-    /* Animación para que la imagen suba */
     @keyframes entrarDesdeAbajo {
       0% {
-        bottom: -100%; /* Fuera de la pantalla */
+        bottom: -100%;
       }
       100% {
-        bottom: 0; /* Hasta el borde superior */
+        bottom: 0;
       }
     }
 
-    /* Estilo para el ícono de scroll */
+    /* Botón de audio flotante */
+    .boton-audio {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-verdeoliva);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 400;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .boton-audio.pausa {
+      opacity: 0.5;
+    }
+
+    .icono-audio {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    /* Ícono animado de scroll */
     .scroll-indicator {
       position: fixed;
       bottom: 20px;
@@ -129,9 +154,8 @@
       transform: translateX(-50%);
       font-size: 2rem;
       color: var(--color-verdeoliva);
-      opacity: 0;
+      display: none;
       animation: bounce 1.5s infinite;
-      animation-delay: 2s; /* Aparece 2 segundos después */
     }
 
     @keyframes bounce {
@@ -139,7 +163,7 @@
         transform: translate(-50%, 0);
       }
       50% {
-        transform: translate(-50%, -10px); /* Movimiento hacia arriba */
+        transform: translate(-50%, -10px);
       }
     }
   </style>
@@ -161,9 +185,7 @@
   <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada" id="imagenAnimada">
 
   <!-- Indicador de scroll -->
-  <div class="scroll-indicator" id="scrollIndicator" style="display: none;">
-    ⬇
-  </div>
+  <div class="scroll-indicator" id="scrollIndicator">⬇</div>
 
   <!-- Música de fondo -->
   <audio id="musicaFondo" loop>
@@ -172,13 +194,13 @@
   </audio>
 
   <!-- Botón flotante de control de audio -->
-  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
+  <div class="boton-audio" id="botonAudio" aria-label="Control de música">
     <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
       <path d="M15 8a5 5 0 0 1 0 8"></path>
       <path d="M19 5a9 9 0 0 1 0 14"></path>
     </svg>
-  </button>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -190,31 +212,22 @@
       const botonAudio = document.getElementById('botonAudio');
 
       let isPlaying = false;
-      let shouldResumeOnFocus = false;
 
-      // Reproducir música con inicio gradual
+      // Reproducir música
       function playMusic() {
-        musicaFondo.volume = 0;
         musicaFondo.play();
-        let fadeIn = setInterval(() => {
-          if (musicaFondo.volume < 1) {
-            musicaFondo.volume += 0.1;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100);
         isPlaying = true;
-        botonAudio.classList.add('on'); // Cambiar estado del botón
+        botonAudio.classList.remove('pausa');
       }
 
       // Pausar música
       function pauseMusic() {
         musicaFondo.pause();
         isPlaying = false;
-        botonAudio.classList.remove('on'); // Cambiar estado del botón
+        botonAudio.classList.add('pausa');
       }
 
-      // Alternar reproducción/pausa de música
+      // Alternar reproducción/pausa
       botonAudio.addEventListener('click', function () {
         if (isPlaying) {
           pauseMusic();
@@ -223,28 +236,15 @@
         }
       });
 
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
-      });
-
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
         imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
 
-        // Mostrar el indicador de scroll después de 2 segundos
+        // Mostrar el indicador de scroll después de 3 segundos
         setTimeout(() => {
           scrollIndicator.style.display = 'block';
-        }, 2000);
+        }, 3000);
 
         playMusic(); // Reproduce la música
       });
