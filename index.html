@@ -31,25 +31,25 @@
     }
 
     /* Imagen "welcome" centrada */
-.pantalla-principal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Link de fondo */
-  background-size: auto 100%; /* Ajusta al alto de la pantalla */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita repetición */
-  padding: 2rem;
-  text-align: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  transition: transform 1.5s ease;
-}
+    .pantalla-principal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/welcome.jpg?raw=true'); /* Link de fondo */
+      background-size: auto 100%; /* Ajusta al alto de la pantalla */
+      background-position: center; /* Centra la imagen */
+      background-repeat: no-repeat; /* Evita repetición */
+      padding: 2rem;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: transform 1.5s ease;
+    }
 
     .pantalla-principal.oculta {
       transform: translateY(-100%);
@@ -132,53 +132,31 @@
     .boton-audio.on .icono-audio {
       fill: var(--color-dorado);
     }
-/* Imagen animada desde el borde inferior */
-.imagen-animada {
-  position: fixed;
-  bottom: -100%; /* Comienza fuera del borde inferior */
-  left: 50%; /* Centra horizontalmente */
-  transform: translateX(-50%); /* Ajusta el centro a la mitad */
-  width: auto; /* Mantiene la proporción */
-  height: 80vh; /* Ajusta la altura al 80% de la pantalla */
-  animation: entrarDesdeAbajo 3s ease-in-out forwards;
-}
 
-/* Animación para que la imagen suba */
-@keyframes entrarDesdeAbajo {
-  0% {
-    bottom: -100%; /* Fuera de la pantalla */
-  }
-  100% {
-    bottom: 0; /* Hasta el borde superior */
-  }
-}
-<head>
-  <style>
-    /* Pega el bloque CSS aquí */
+    /* Imagen animada desde el borde inferior */
     .imagen-animada {
       position: fixed;
-      bottom: -100%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-      height: 80vh;
+      bottom: -100%; /* Comienza fuera del borde inferior */
+      left: 50%; /* Centra horizontalmente */
+      transform: translateX(-50%); /* Ajusta el centro a la mitad */
+      width: auto; /* Mantiene la proporción */
+      height: 80vh; /* Ajusta la altura al 80% de la pantalla */
     }
 
+    /* Clase para activar la animación */
     .imagen-animada.activa {
       animation: entrarDesdeAbajo 3s ease-in-out forwards;
     }
 
+    /* Animación para que la imagen suba */
     @keyframes entrarDesdeAbajo {
       0% {
-        bottom: -100%;
+        bottom: -100%; /* Fuera de la pantalla */
       }
       100% {
-        bottom: 0;
+        bottom: 0; /* Hasta el borde superior */
       }
     }
-  </style>
-</head>
-    
   </style>
 </head>
 <body>
@@ -209,93 +187,72 @@
     </svg>
   </button>
 
-  <!-- Otros elementos de tu página -->
-
   <!-- Imagen animada -->
-  <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada">
+  <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada" id="imagenAnimada">
 
-  <!-- Botón "Sí, acepto" -->
-  <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
-  
-  <!-- Imagen animada -->
-  <img src="TU_LINK_DE_IMAGEN" alt="Imagen animada" class="imagen-animada">
-</body>
-  
-  <!-- Otros elementos de tu página -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const pantallaPrincipal = document.getElementById('pantallaPrincipal');
+      const botonAceptar = document.getElementById('botonAceptar');
+      const musicaFondo = document.getElementById('musicaFondo');
+      const botonAudio = document.getElementById('botonAudio');
+      const imagenAnimada = document.getElementById('imagenAnimada');
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const pantallaPrincipal = document.getElementById('pantallaPrincipal');
-    const botonAceptar = document.getElementById('botonAceptar');
-    const musicaFondo = document.getElementById('musicaFondo');
-    const botonAudio = document.getElementById('botonAudio');
+      let isPlaying = false;
+      let shouldResumeOnFocus = false;
 
-    let isPlaying = false;
-    let shouldResumeOnFocus = false;
-
-    // Reproducir música con inicio gradual
-    function playMusic() {
-      musicaFondo.volume = 0;
-      musicaFondo.play();
-      let fadeIn = setInterval(() => {
-        if (musicaFondo.volume < 1) {
-          musicaFondo.volume += 0.1;
-        } else {
-          clearInterval(fadeIn);
-        }
-      }, 100);
-      isPlaying = true;
-      botonAudio.classList.add('on'); // Cambiar estado del botón
-    }
-
-    // Pausar música
-    function pauseMusic() {
-      musicaFondo.pause();
-      isPlaying = false;
-      botonAudio.classList.remove('on'); // Cambiar estado del botón
-    }
-
-    // Alternar reproducción/pausa de música
-    botonAudio.addEventListener('click', function () {
-      if (isPlaying) {
-        pauseMusic();
-      } else {
-        playMusic();
+      // Reproducir música con inicio gradual
+      function playMusic() {
+        musicaFondo.volume = 0;
+        musicaFondo.play();
+        let fadeIn = setInterval(() => {
+          if (musicaFondo.volume < 1) {
+            musicaFondo.volume += 0.1;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+        isPlaying = true;
+        botonAudio.classList.add('on'); // Cambiar estado del botón
       }
-    });
 
-    // Pausar música automáticamente al salir de la pestaña
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
+        botonAudio.classList.remove('on'); // Cambiar estado del botón
+      }
+
+      // Alternar reproducción/pausa de música
+      botonAudio.addEventListener('click', function () {
         if (isPlaying) {
           pauseMusic();
-          shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
+        } else {
+          playMusic();
         }
-      } else if (shouldResumeOnFocus) {
-        playMusic();
-        shouldResumeOnFocus = false; // Ya no necesita reanudar
-      }
-    });
+      });
 
-    // Acción al presionar "Sí, acepto"
-    botonAceptar.addEventListener('click', function () {
-      pantallaPrincipal.classList.add('oculta');
-      playMusic();
-      botonAudio.classList.add('visible'); // Mostrar el botón de audio
-    });
-  });
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const pantallaPrincipal = document.getElementById('pantallaPrincipal');
-    const botonAceptar = document.getElementById('botonAceptar');
-    const imagenAnimada = document.querySelector('.imagen-animada');
+      // Pausar música automáticamente al salir de la pestaña
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
+          }
+        } else if (shouldResumeOnFocus) {
+          playMusic();
+          shouldResumeOnFocus = false; // Ya no necesita reanudar
+        }
+      });
 
-    // Acción al presionar "Sí, acepto"
-    botonAceptar.addEventListener('click', function () {
-      pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
-      imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
+      // Acción al presionar "Sí, acepto"
+      botonAceptar.addEventListener('click', function () {
+        pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
+        imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
+        botonAudio.classList.add('visible'); // Mostrar el botón de audio
+        playMusic(); // Reproduce la música
+      });
     });
-  });
-</script>
-</script></body>
+  </script>
+</body>
 </html>
