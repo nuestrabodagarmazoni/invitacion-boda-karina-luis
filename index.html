@@ -55,13 +55,53 @@
       transform: translateY(-100%);
     }
 
+    /* Texto principal */
+    .mensaje-principal {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      line-height: 1.4;
+      margin-bottom: 3rem;
+      color: var(--color-verdeoliva); /* Color interno de las letras */
+      font-weight: 700; /* Negrita */
+      text-shadow: 2px 2px var(--color-blanco); /* Sombra para resaltar */
+      -webkit-text-stroke: 1px var(--color-gris-oscuro); /* Borde gris oscuro alrededor de las letras */
+    }
+
+    /* Botón principal */
+    .boton-aceptar {
+      background-color: var(--color-verdeoliva);
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: heartbeat 3s infinite; /* Latido más lento */
+    }
+
+    .boton-aceptar:hover {
+      background-color: #5c6633;
+      transform: translateY(-3px);
+    }
+
+    @keyframes heartbeat {
+      0%, 50%, 100% {
+        transform: scale(1);
+      }
+      25%, 75% {
+        transform: scale(1.1); /* Efecto de latido */
+      }
+    }
+
     /* Imagen animada desde el borde inferior */
     .imagen-animada {
       position: fixed;
-      top: 50%; /* Centrar verticalmente */
-      left: 50%; /* Centrar horizontalmente */
-      transform: translate(-50%, -50%); /* Ajustar para que el centro de la imagen coincida con el centro de la pantalla */
-      width: 100%; /* Ajustar el ancho al 100% de la pantalla */
+      bottom: -100%; /* Comienza fuera del borde inferior */
+      left: 50%; /* Centra horizontalmente */
+      transform: translateX(-50%); /* Ajusta el centro a la mitad */
+      width: 100%; /* Ajustar al 100% del ancho */
       height: auto; /* Mantener la proporción */
       animation: entrarDesdeAbajo 3s ease-in-out forwards;
     }
@@ -80,6 +120,28 @@
         bottom: 0; /* Hasta el borde superior */
       }
     }
+
+    /* Estilo para el ícono de scroll */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      color: var(--color-verdeoliva);
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 2s; /* Aparece 2 segundos después */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -95,85 +157,30 @@
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
 
-  <!-- Música de fondo -->
-  <audio id="musicaFondo" loop>
-    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
-    Tu navegador no soporta el elemento de audio.
-  </audio>
-
-  <!-- Botón flotante de control de audio -->
-  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
-    <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15 8a5 5 0 0 1 0 8"></path>
-      <path d="M19 5a9 9 0 0 1 0 14"></path>
-    </svg>
-  </button>
-
   <!-- Imagen animada -->
   <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada" id="imagenAnimada">
+
+  <!-- Indicador de scroll -->
+  <div class="scroll-indicator" id="scrollIndicator" style="display: none;">
+    ↓ Desliza hacia abajo ↓
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
-      const musicaFondo = document.getElementById('musicaFondo');
-      const botonAudio = document.getElementById('botonAudio');
       const imagenAnimada = document.getElementById('imagenAnimada');
-
-      let isPlaying = false;
-      let shouldResumeOnFocus = false;
-
-      // Reproducir música con inicio gradual
-      function playMusic() {
-        musicaFondo.volume = 0;
-        musicaFondo.play();
-        let fadeIn = setInterval(() => {
-          if (musicaFondo.volume < 1) {
-            musicaFondo.volume += 0.1;
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100);
-        isPlaying = true;
-        botonAudio.classList.add('on'); // Cambiar estado del botón
-      }
-
-      // Pausar música
-      function pauseMusic() {
-        musicaFondo.pause();
-        isPlaying = false;
-        botonAudio.classList.remove('on'); // Cambiar estado del botón
-      }
-
-      // Alternar reproducción/pausa de música
-      botonAudio.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
-        } else {
-          playMusic();
-        }
-      });
-
-      // Pausar música automáticamente al salir de la pestaña
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          if (isPlaying) {
-            pauseMusic();
-            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
-          }
-        } else if (shouldResumeOnFocus) {
-          playMusic();
-          shouldResumeOnFocus = false; // Ya no necesita reanudar
-        }
-      });
+      const scrollIndicator = document.getElementById('scrollIndicator');
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
         imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
-        botonAudio.classList.add('visible'); // Mostrar el botón de audio
-        playMusic(); // Reproduce la música
+
+        // Mostrar el indicador de scroll después de 2 segundos
+        setTimeout(() => {
+          scrollIndicator.style.display = 'block';
+        }, 2000);
       });
     });
   </script>
