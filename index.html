@@ -55,95 +55,17 @@
       transform: translateY(-100%);
     }
 
-    /* Borde alrededor de cada letra */
-    .mensaje-principal {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.8rem;
-      line-height: 1.4;
-      margin-bottom: 3rem;
-      color: var(--color-verdeoliva); /* Color interno de las letras */
-      font-weight: 700; /* Negrita */
-      text-shadow: none; /* Elimina la sombra */
-      -webkit-text-stroke: 1px var(--color-gris-oscuro); /* Borde gris oscuro alrededor de las letras */
-    }
-
-    .boton-aceptar {
-      background-color: var(--color-verdeoliva);
-      color: white;
-      border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: heartbeat 3s infinite; /* Latido más lento */
-    }
-
-    .boton-aceptar:hover {
-      background-color: #5c6633;
-      transform: translateY(-3px);
-    }
-
-    @keyframes heartbeat {
-      0%, 50%, 100% {
-        transform: scale(1);
-      }
-      25%, 75% {
-        transform: scale(1.1); /* Efecto de latido */
-      }
-    }
-
-    /* Botón flotante de audio */
-    .boton-audio {
+    /* Imagen animada desde el borde inferior */
+    .imagen-animada {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--color-verdeoliva);
-      color: white;
-      display: none; /* Oculto inicialmente */
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 400;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border: none;
-      transition: all 0.3s ease;
+      top: 50%; /* Centrar verticalmente */
+      left: 50%; /* Centrar horizontalmente */
+      transform: translate(-50%, -50%); /* Ajustar para que el centro de la imagen coincida con el centro de la pantalla */
+      width: 100%; /* Ajustar el ancho al 100% de la pantalla */
+      height: auto; /* Mantener la proporción */
+      animation: entrarDesdeAbajo 3s ease-in-out forwards;
     }
 
-    .boton-audio.visible {
-      display: flex;
-    }
-
-    .boton-audio:hover {
-      background-color: #5c6633;
-      transform: scale(1.1);
-    }
-
-    .icono-audio {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-
-    .boton-audio.on .icono-audio {
-      fill: var(--color-dorado);
-    }
-
-/* Reemplaza este bloque existente */
-.imagen-animada {
-  position: fixed;
-  top: 50%; /* Centrar verticalmente */
-  left: 50%; /* Centrar horizontalmente */
-  transform: translate(-50%, -50%); /* Ajustar para que el centro de la imagen coincida con el centro de la pantalla */
-  width: 80%; /* Ajustar el ancho al 80% de la pantalla */
-  height: auto; /* Mantener la proporción */
-  animation: entrarDesdeAbajo 3s ease-in-out forwards;
-}
-</style>
     /* Clase para activar la animación */
     .imagen-animada.activa {
       animation: entrarDesdeAbajo 3s ease-in-out forwards;
