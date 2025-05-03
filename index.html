@@ -133,16 +133,17 @@
       fill: var(--color-dorado);
     }
 
-    /* Imagen animada desde el borde inferior */
-    .imagen-animada {
-      position: fixed;
-      bottom: -100%; /* Comienza fuera del borde inferior */
-      left: 50%; /* Centra horizontalmente */
-      transform: translateX(-50%); /* Ajusta el centro a la mitad */
-      width: auto; /* Mantiene la proporción */
-      height: 80vh; /* Ajusta la altura al 80% de la pantalla */
-    }
-
+/* Reemplaza este bloque existente */
+.imagen-animada {
+  position: fixed;
+  top: 50%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Ajustar para que el centro de la imagen coincida con el centro de la pantalla */
+  width: 80%; /* Ajustar el ancho al 80% de la pantalla */
+  height: auto; /* Mantener la proporción */
+  animation: entrarDesdeAbajo 3s ease-in-out forwards;
+}
+</style>
     /* Clase para activar la animación */
     .imagen-animada.activa {
       animation: entrarDesdeAbajo 3s ease-in-out forwards;
