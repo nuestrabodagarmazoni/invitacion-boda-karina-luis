@@ -127,19 +127,19 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: var(--color-verdeoliva);
       opacity: 0;
-      animation: fadeIn 1s forwards;
+      animation: bounce 1.5s infinite;
       animation-delay: 2s; /* Aparece 2 segundos después */
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
+    @keyframes bounce {
+      0%, 100% {
+        transform: translate(-50%, 0);
       }
-      to {
-        opacity: 1;
+      50% {
+        transform: translate(-50%, -10px); /* Movimiento hacia arriba */
       }
     }
   </style>
@@ -162,8 +162,23 @@
 
   <!-- Indicador de scroll -->
   <div class="scroll-indicator" id="scrollIndicator" style="display: none;">
-    ↓ Desliza hacia abajo ↓
+    ⬇
   </div>
+
+  <!-- Música de fondo -->
+  <audio id="musicaFondo" loop>
+    <source src="https://raw.githubusercontent.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/main/musica.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <!-- Botón flotante de control de audio -->
+  <button class="boton-audio" id="botonAudio" aria-label="Control de música">
+    <svg class="icono-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 8a5 5 0 0 1 0 8"></path>
+      <path d="M19 5a9 9 0 0 1 0 14"></path>
+    </svg>
+  </button>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -171,6 +186,55 @@
       const botonAceptar = document.getElementById('botonAceptar');
       const imagenAnimada = document.getElementById('imagenAnimada');
       const scrollIndicator = document.getElementById('scrollIndicator');
+      const musicaFondo = document.getElementById('musicaFondo');
+      const botonAudio = document.getElementById('botonAudio');
+
+      let isPlaying = false;
+      let shouldResumeOnFocus = false;
+
+      // Reproducir música con inicio gradual
+      function playMusic() {
+        musicaFondo.volume = 0;
+        musicaFondo.play();
+        let fadeIn = setInterval(() => {
+          if (musicaFondo.volume < 1) {
+            musicaFondo.volume += 0.1;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+        isPlaying = true;
+        botonAudio.classList.add('on'); // Cambiar estado del botón
+      }
+
+      // Pausar música
+      function pauseMusic() {
+        musicaFondo.pause();
+        isPlaying = false;
+        botonAudio.classList.remove('on'); // Cambiar estado del botón
+      }
+
+      // Alternar reproducción/pausa de música
+      botonAudio.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // Pausar música automáticamente al salir de la pestaña
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+            shouldResumeOnFocus = true; // Marcar que debe reanudar al regresar
+          }
+        } else if (shouldResumeOnFocus) {
+          playMusic();
+          shouldResumeOnFocus = false; // Ya no necesita reanudar
+        }
+      });
 
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
@@ -181,6 +245,8 @@
         setTimeout(() => {
           scrollIndicator.style.display = 'block';
         }, 2000);
+
+        playMusic(); // Reproduce la música
       });
     });
   </script>
