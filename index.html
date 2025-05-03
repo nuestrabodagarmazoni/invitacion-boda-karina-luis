@@ -95,29 +95,6 @@
       }
     }
 
-    /* Imagen animada desde el borde inferior */
-    .imagen-animada {
-      position: fixed;
-      bottom: -100%; /* Inicialmente fuera de la pantalla */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      height: auto;
-    }
-
-    .imagen-animada.activa {
-      animation: entrarDesdeAbajo 3s ease-in-out forwards;
-    }
-
-    @keyframes entrarDesdeAbajo {
-      0% {
-        bottom: -100%;
-      }
-      100% {
-        bottom: 0;
-      }
-    }
-
     /* Botón de audio flotante */
     .boton-audio {
       position: fixed;
@@ -150,8 +127,7 @@
     .scroll-indicator {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 2rem;
       font-size: 2rem;
       color: var(--color-verdeoliva);
       display: none;
@@ -160,10 +136,10 @@
 
     @keyframes bounce {
       0%, 100% {
-        transform: translate(-50%, 0);
+        transform: translate(0, 0);
       }
       50% {
-        transform: translate(-50%, -10px);
+        transform: translate(0, -10px);
       }
     }
   </style>
@@ -180,9 +156,6 @@
     </h1>
     <button class="boton-aceptar" id="botonAceptar">Sí, acepto</button>
   </div>
-
-  <!-- Imagen animada -->
-  <img src="https://github.com/nuestrabodagarmazoni/invitacion-boda-karina-luis/blob/main/manos.jpg?raw=true" alt="Imagen animada" class="imagen-animada" id="imagenAnimada">
 
   <!-- Indicador de scroll -->
   <div class="scroll-indicator" id="scrollIndicator">⬇</div>
@@ -206,7 +179,6 @@
     document.addEventListener('DOMContentLoaded', function () {
       const pantallaPrincipal = document.getElementById('pantallaPrincipal');
       const botonAceptar = document.getElementById('botonAceptar');
-      const imagenAnimada = document.getElementById('imagenAnimada');
       const scrollIndicator = document.getElementById('scrollIndicator');
       const musicaFondo = document.getElementById('musicaFondo');
       const botonAudio = document.getElementById('botonAudio');
@@ -239,7 +211,6 @@
       // Acción al presionar "Sí, acepto"
       botonAceptar.addEventListener('click', function () {
         pantallaPrincipal.classList.add('oculta'); // Oculta la pantalla principal
-        imagenAnimada.classList.add('activa'); // Activa la animación de la imagen
 
         // Mostrar el indicador de scroll después de 3 segundos
         setTimeout(() => {
